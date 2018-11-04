@@ -19,6 +19,6 @@ after_success:
 
 notifications:
   email:
-    on_failure: always
-    on_success: always
-    slack: bronxbuilders:E3OdfNGm2MePIUpqDxMSnffk#travis_alerts
+    on_failure: change
+    on_success: change
+  slack: bronxbuilders:E3OdfNGm2MePIUpqDxMSnffk#travis_alerts
