@@ -1,25 +1,47 @@
 # Where To Go (Desicions made simple)
+You can find project full documentation [here](https://github.com/fhidal01/where-to-go/wiki)
 
 ## Prerequisites
-Node version: 8.12.0
-NPM version: 6.4.1
-Angular CLI: 7.0.3
+* Node version: 8.12.0
+* NPM version: 6.4.1
+* Angular CLI: 7.0.3
 
 ## Install
 After cloning project and ensuring all prerequisites are met navigate to the root directory of the project and run npm install
 
+````js
+  cd projects/where_to_go
+  npm install
+````
+**Note**: If you run into any errors at this point you may need to run npm with sudo
+````js
+  sudo npm install
+````
 
-## Development server
+## Build (local development)
+
+**UI**  
+At root level of project Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+````js
+  ng build
+````
+**OR**
+````js
+  ng build --prod
+````
+
+**GCP Cloud Functions**  
+Navigate to the `functions` directory and run `npm run build` to build the cloud functions. The build artifacts will be stored in the `functions/lib` directory.
+````js
+  cd ./functions
+  npm run build
+````
+
+## Server local development)
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Running unit tests
 
