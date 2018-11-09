@@ -59,6 +59,7 @@ Navigate to the `functions` directory and run `npm run build` to build the cloud
   sudo firebase serve --only functions
 ````
 
+# ------------- Ignore instructions below for now -------------
 
 ## Running unit tests
 
