@@ -1,6 +1,13 @@
-# WhereToGo
+# Where To Go (Desicions made simple)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.3.
+## Prerequisites
+Node version: 8.12.0
+NPM version: 6.4.1
+Angular CLI: 7.0.3
+
+## Install
+After cloning project and ensuring all prerequisites are met navigate to the root directory of the project and run npm install
+
 
 ## Development server
 
