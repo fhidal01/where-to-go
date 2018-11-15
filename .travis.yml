@@ -12,10 +12,9 @@ before_script:
   - npm install -g @angular/cli
 
 script:
-  - ng build --prod
-  - cd functions
   - ls
-  - npm ci
+  - ng build --prod
+  - cd functions && npm install
   - cd ../
 
 after_success:
