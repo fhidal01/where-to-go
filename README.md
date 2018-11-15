@@ -1,3 +1,5 @@
+![Build Status](https://travis-ci.org/fhidal01/where-to-go.svg?branch=master)
+
 # Where To Go (Desicions made simple)
 You can find project full documentation [here](https://github.com/fhidal01/where-to-go/wiki)
 
