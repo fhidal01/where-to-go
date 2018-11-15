@@ -12,9 +12,9 @@
         "destination": "/index.html"
       }
     ],
-    "postdeploy": "./messageSlack.sh 'Just deployed to Firebase Hosting'"
+    "postdeploy": "./messageSlack.sh"
   },
   "functions": {
-    "postdeploy": "./messageSlack.sh 'Just deployed to Firebase Functions'"
+    "postdeploy": "./messageSlack.sh"
   }
 }
