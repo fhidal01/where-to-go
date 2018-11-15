@@ -12,8 +12,8 @@ before_script:
   - npm install -g @angular/cli
 
 script:
-  - ls
   - ng build --prod
+  - npm cache clean
   - cd functions && npm install
   - cd ../
 
