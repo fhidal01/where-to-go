@@ -13,7 +13,6 @@ before_script:
 
 script:
   - ng build --prod
-  - npm cache clean
   - cd functions && npm install
   - cd ../
 
