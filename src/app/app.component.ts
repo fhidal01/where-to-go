@@ -34,14 +34,14 @@ export class AppComponent {
   }
 
   search() {
-    this.http.get(`http://localhost:5000/where-to-go-2acea/us-central1/coordinates?address=${this.address}`)
+    this.http.get(`https://us-central1-where-to-go-2acea.cloudfunctions.net/coordinates?address=${this.address}`)
       .subscribe(value => {
         const latitude = (value as MyResponse).results[0].geometry.location.lat;
         const longitude = (value as MyResponse).results[0].geometry.location.lng;
         console.log(latitude);
         console.log(longitude);
 
-        this.http.get(`http://localhost:5000/where-to-go-2acea/us-central1/places?latitude=${latitude}&longitude=${longitude}`)
+        this.http.get(`https://us-central1-where-to-go-2acea.cloudfunctions.net/places?latitude=${latitude}&longitude=${longitude}`)
           .subscribe(places => {
             this.places = (places as MyResponse).results;
           });
