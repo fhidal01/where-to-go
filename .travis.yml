@@ -14,7 +14,8 @@ before_script:
 script:
   - ng build --prod
   - cd functions
-  - npm install
+  - ls
+  - npm ci
   - cd ../
 
 after_success:
