@@ -8,6 +8,7 @@ You can find project full documentation [here](https://github.com/fhidal01/where
 * NPM version: 6.4.1
 * Angular CLI: 7.0.3
 * Firebase tools CLI: 6.0.0
+* Typescript Version 3.2.2
 
 ## Install
 After cloning project and ensuring all prerequisites are met navigate to the root directory of the project and run npm install
@@ -39,6 +40,10 @@ Navigate to the `functions` directory and run `npm run build` to build the cloud
 ````js
   cd ./functions
   npm run build
+````
+Make sure you have typescript installed in your functions folder if you do not, navigate to your functions folder and run...
+````js
+npm install
 ````
 
 ## Server (local development)
