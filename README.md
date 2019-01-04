@@ -8,7 +8,7 @@ You can find project full documentation [here](https://github.com/fhidal01/where
 * NPM version: 6.4.1
 * Angular CLI: 7.0.3
 * Firebase tools CLI: 6.0.0
-* Typescript Version 3.2.2
+* Typescript version: 3.2.2
 
 ## Install
 After cloning project and ensuring all prerequisites are met navigate to the root directory of the project and run npm install
