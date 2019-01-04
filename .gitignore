@@ -10,3 +10,4 @@ dist/
 
 #google cloud platform (gcp) functions
 functions/lib/
+/functions/package-lock.json
