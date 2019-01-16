@@ -40,7 +40,6 @@ export const places = functions.https.onRequest((request, response) => {
     if (request.method === 'OPTIONS') {
         handleOptionsCORS(response);
     } else {
-        console.log("@@ in else");
         httpClient.get(
             {
                 url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${request.query.latitude},${request.query.longitude}&radius=1500&type=restaurant&key=${config.googleservice.apikey}`
@@ -67,6 +66,23 @@ export const map = functions.https.onRequest((request, response) => {
                 function (error, res, body) {
                     if (!error && res.statusCode === 200) {
                         response.contentType("png");
+                        response.send(body);
+                    }
+                });
+    }
+});
+
+export const placeDetails = functions.https.onRequest((request, response) => {
+    enableCORS(response);
+
+    if (request.method === 'OPTIONS') {
+        handleOptionsCORS(response);
+    } else {
+        httpClient
+            .get(
+                { url: `https://maps.googleapis.com/maps/api/place/details/json?placeid=${request.query.place}&key=${config.googleservice.apikey}`},
+                function (error, res, body) {
+                    if (!error && res.statusCode === 200) {
                         response.send(body);
                     }
                 });

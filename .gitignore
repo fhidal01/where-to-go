@@ -10,4 +10,5 @@ dist/
 
 #google cloud platform (gcp) functions
 functions/lib/
+functions/firebase-debug.log
 /functions/package-lock.json
