@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { AuthService } from './services/auth.service';
 
 interface Coordinates {
   lat: number;
@@ -35,8 +36,32 @@ export class AppComponent {
 
   url = 'https://us-central1-where-to-go-2acea.cloudfunctions.net';
   // url = 'http://localhost:5000/where-to-go-2acea/us-central1';
+  txtEmail;
+  txtPassword;
+  txtEnterCredentials;
+  btnLogin = document.getElementById('loginButton');
+  btnLogout = document.getElementById('logoutButton');
+  btnSignup = document.getElementById('signupButton');
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
+
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer, public authserv: AuthService) {
+  }
+
+  signUpWithEmailAndPassword(){
+    if(this.txtEmail!=null && this.txtPassword != null){
+      this.authserv.signUpWithEmailAndPassword(this.txtEmail,this.txtPassword);
+    }
+  }
+
+  signInWithEmailAndPassword(){
+    if( this.txtEmail!=null && this.txtPassword!=null ){
+      this.authserv.signInWithEmailAndPassword(this.txtEmail,this.txtPassword);
+      this.txtEmail = '';
+      this.txtPassword = '';
+    }
+    else{
+      this.txtEnterCredentials = 'Please input email and password';
+    }
   }
 
   search() {
