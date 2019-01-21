@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "where-to-go-2acea"
+    "default": "where-to-go-2acea",
+    "sandbox": "where-to-go-sandbox"
   }
 }
