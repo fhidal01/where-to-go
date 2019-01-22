@@ -3,10 +3,10 @@ language: node_js
 node_js:
   - "8.12.0"
 
-if: branch = master
+if: branch = felix_features
 branches:
   only:
-    - master
+    - felix_featureser
 
 before_script:
   - npm install -g firebase-tools
@@ -21,7 +21,7 @@ script:
   - npm run build
 
 after_success:
-  - firebase deploy --token $FIREBASE_TOKEN
+  - firebase deploy -P sandbox --token $FIREBASE_TOKEN
 
 notifications:
   email:
