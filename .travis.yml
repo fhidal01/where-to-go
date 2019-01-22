@@ -3,10 +3,39 @@ language: node_js
 node_js:
   - "8.12.0"
 
+# Master Branch config
 if: branch = master
 branches:
   only:
-    - felix_features
+    - master
+
+before_script:
+  - npm install -g firebase-tools
+  - npm install -g @angular/cli
+  - cd functions && npm install
+  - cd ../
+
+script:
+  - ng build --prod
+  - cd functions
+  - npm run lint
+  - npm run build
+
+after_success:
+  - firebase deploy -P default --token $FIREBASE_TOKEN
+
+notifications:
+  email:
+    on_failure: change
+    on_success: change
+  slack: bronxbuilders:E3OdfNGm2MePIUpqDxMSnffk#travis_alerts
+
+
+# Sandbox Branch config
+if: branch = sandbox
+branches:
+  only:
+    - sandbox
 
 before_script:
   - npm install -g firebase-tools
