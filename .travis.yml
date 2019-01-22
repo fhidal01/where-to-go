@@ -3,6 +3,7 @@ language: node_js
 node_js:
   - "8.12.0"
 
+if: branch = master
 branches:
   only:
     - master
