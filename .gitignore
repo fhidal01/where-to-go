@@ -12,3 +12,6 @@ dist/
 functions/lib/
 functions/firebase-debug.log
 /functions/package-lock.json
+
+
+.travis.yml
