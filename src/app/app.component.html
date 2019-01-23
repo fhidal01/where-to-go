@@ -1,23 +1,25 @@
-<div style="float:right;">
-  <!--Login/Authenticaiton-->
-    <p *ngIf="!authserv.userDetails">Email</p>
-    <input *ngIf="!authserv.userDetails" [(ngModel)]="txtEmail" id="emailInput">
-    <p *ngIf="!authserv.userDetails">Password</p>
-    <input type="password" *ngIf="!authserv.userDetails" [(ngModel)]="txtPassword" id="passwordInput"><br><br>
-    <button *ngIf="!authserv.userDetails" (click)="signInWithEmailAndPassword()">Login W/ email & password</button><br><br>
-    <button *ngIf="!authserv.userDetails" (click)="authserv.signInWithGoogle()">Login With Google</button><br><br>
-    <button *ngIf="authserv.userDetails" (click)="authserv.logout()">Logout</button>
-    <button *ngIf="!authserv.userDetails" (click)="signUpWithEmailAndPassword()">Signup!</button>
-    <p *ngIf="txtEnterCredentials">{{txtEnterCredentials}}</p>
-</div>
-
+<button *ngIf="authserv.userDetails" (click)="authserv.logout()" style="float:right;">Logout</button>
 
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    Welcome {{authserv.userDetails?.displayName || authserv.userDetails?.email || 'Guest'}}!
+    Welcome to the Where to Go app {{authserv.userDetails?.displayName || authserv.userDetails?.email || ''}}!
   </h1>
   <img width="150" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+</div>
+
+<div style="width: 400px; margin-right:auto;margin-left:auto;">
+  <div *ngIf="!authserv.userDetails">
+    <p style="text-align:center;">Email</p>
+    <input style="margin: auto;display: block;" [(ngModel)]="txtEmail" id="emailInput">
+    <p style="text-align:center;">Password</p>
+    <input style="margin: auto;display: block;" type="password" [(ngModel)]="txtPassword" id="passwordInput"><br><br>
+    <button style="margin: auto;display: block;" (click)="signInWithEmailAndPassword()">Login W/ email & password</button><br><br>
+    <button style="margin: auto;display: block;" (click)="authserv.signInWithGoogle()">Login With Google</button><br><br>
+    <button style="margin:auto; display:block;" (click)="authserv.signInAnonymous()">Login as a guest</button><br><br>
+    <button style="margin: auto;display: block;" (click)="signUpWithEmailAndPassword()">Signup!</button>
+  </div>
+    <p style="text-align:center;" *ngIf="txtEnterCredentials">{{txtEnterCredentials}}</p>
 </div>
 
 <div *ngIf="searching" style="width: 100%; margin: auto; text-align: center">
@@ -26,7 +28,7 @@
 
 <div *ngIf="!searching" style="width: 100%">
 
-  <div style="float: left; margin-left: 10%">
+  <div *ngIf="authserv.userDetails" style="float: left; margin-left: 10%">
     <div>
       <h2>Enter your look up area: </h2>
       <input type="text" [(ngModel)]="address">

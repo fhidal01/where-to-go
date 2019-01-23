@@ -14,20 +14,24 @@ export class AuthService {
   public userDetails: firebase.User = null;
 
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
+
     this.user = _firebaseAuth.authState;
     this.user.subscribe(
       (user) => {
         if (user) {
           this.userDetails = user;
-          console.log('Inside Subscribe Code')
           console.log(this.userDetails);
         }
         else {
-          console.log('Inside of subscribe code else');
           this.userDetails = null;
         }
       }
     );
+
+  }
+
+  signInAnonymous(){
+    this._firebaseAuth.auth.signInAnonymously();
   }
 
   signUpWithEmailAndPassword(email: string, password: string){
