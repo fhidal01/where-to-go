@@ -39,10 +39,6 @@ export class AppComponent {
   txtEmail;
   txtPassword;
   txtEnterCredentials;
-  btnLogin = document.getElementById('loginButton');
-  btnLogout = document.getElementById('logoutButton');
-  btnSignup = document.getElementById('signupButton');
-
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer, public authserv: AuthService) {
   }
@@ -50,6 +46,9 @@ export class AppComponent {
   signUpWithEmailAndPassword(){
     if(this.txtEmail!=null && this.txtPassword != null){
       this.authserv.signUpWithEmailAndPassword(this.txtEmail,this.txtPassword);
+    }
+    else{
+      this.txtEnterCredentials = 'Please input email and password';
     }
   }
 
