@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyBI2AJDiKYoM4iLRn-vueueT_1lLhht_rk",
-    authDomain: "where-to-go-2acea.firebaseapp.com",
-    databaseURL: "https://where-to-go-2acea.firebaseio.com",
-    projectId: "where-to-go-2acea",
-    storageBucket: "where-to-go-2acea.appspot.com",
-    messagingSenderId: "508678585482"
+    apiKey: 'AIzaSyDtx_uucaQo-0wf43QBa2C6nev9eEKu0RQ',
+    authDomain: 'where-to-go-sandbox.firebaseapp.com',
+    databaseURL: 'https://where-to-go-sandbox.firebaseio.com',
+    projectId: 'where-to-go-sandbox',
+    storageBucket: 'where-to-go-sandbox.appspot.com',
+    messagingSenderId: '759411001464'
   }
 };
 

@@ -2,11 +2,27 @@ import * as functions from 'firebase-functions';
 import * as httpClient from 'request';
 
 type Response = functions.Response;
+type Request = functions.Request;
 
-const config = functions.config();
+type Config = {
+    googleservice: {
+        apikey: string
+    },
+    cors: {
+        allowedorigins: string
+    }
+}
 
-function enableCORS(response: Response): void {
-    response.set('Access-Control-Allow-Origin', '*');
+const config = functions.config() as Config;
+
+function enableCORS(req: Request, response: Response): void {
+    const allowedOrigins = config.cors.allowedorigins.split(',') as Array<string>;
+    console.log(allowedOrigins)
+    const origin = req.headers['origin'] as string;
+
+    if (allowedOrigins.indexOf(origin) > -1) {
+        response.setHeader('Access-Control-Allow-Origin', origin);
+    }
 }
 
 function handleOptionsCORS(response: Response): void {
@@ -18,7 +34,7 @@ function handleOptionsCORS(response: Response): void {
 
 export const coordinates = functions.https.onRequest((request, response) => {
 
-    enableCORS(response);
+    enableCORS(request, response);
 
     if (request.method === 'OPTIONS') {
         handleOptionsCORS(response);
@@ -35,7 +51,7 @@ export const coordinates = functions.https.onRequest((request, response) => {
 
 export const places = functions.https.onRequest((request, response) => {
 
-    enableCORS(response);
+    enableCORS(request, response);
 
     if (request.method === 'OPTIONS') {
         handleOptionsCORS(response);
@@ -54,7 +70,7 @@ export const places = functions.https.onRequest((request, response) => {
 
 export const map = functions.https.onRequest((request, response) => {
 
-    enableCORS(response);
+    enableCORS(request, response);
 
     if (request.method === 'OPTIONS') {
         handleOptionsCORS(response);
@@ -73,14 +89,14 @@ export const map = functions.https.onRequest((request, response) => {
 });
 
 export const placeDetails = functions.https.onRequest((request, response) => {
-    enableCORS(response);
+    enableCORS(request, response);
 
     if (request.method === 'OPTIONS') {
         handleOptionsCORS(response);
     } else {
         httpClient
             .get(
-                { url: `https://maps.googleapis.com/maps/api/place/details/json?placeid=${request.query.place}&key=${config.googleservice.apikey}`},
+                { url: `https://maps.googleapis.com/maps/api/place/details/json?placeid=${request.query.place}&key=${config.googleservice.apikey}` },
                 function (error, res, body) {
                     if (!error && res.statusCode === 200) {
                         response.send(body);
