@@ -16,11 +16,10 @@ type Config = {
 const config = functions.config() as Config;
 
 function enableCORS(req: Request, response: Response): void {
-    const allowedOrigins = config.cors.allowedorigins.split(',') as Array<string>;
-    console.log(allowedOrigins)
+    const allowedOrigins = config.cors.allowedorigins.split(',');
     const origin = req.headers['origin'] as string;
 
-    if (allowedOrigins.indexOf(origin) > -1) {
+    if (allowedOrigins.indexOf(origin)) {
         response.setHeader('Access-Control-Allow-Origin', origin);
     }
 }
