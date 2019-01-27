@@ -16,7 +16,7 @@ before_script:
   - cd ../
 
 script:
-  - ng build --prod
+  - ng build
   - cd functions
   - npm run lint
   - npm run build
