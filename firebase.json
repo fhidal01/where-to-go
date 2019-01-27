@@ -12,9 +12,9 @@
         "destination": "/index.html"
       }
     ],
-    "postdeploy": "./messageSlack.sh"
+    "postdeploy": "./messageSlack.sh 'Hosting successfully deployed' "
   },
   "functions": {
-    "postdeploy": "./messageSlack.sh"
+    "postdeploy": "./messageSlack.sh 'Cloud functions successfully deployed' "
   }
 }
