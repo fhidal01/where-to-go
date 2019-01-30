@@ -1,0 +1,42 @@
+
+<div *ngIf="searching" style="width: 100%; margin: auto; text-align: center">
+  <h2>Searching....</h2>
+</div>
+
+<div *ngIf="!searching" style="width: 100%">
+
+  <div *ngIf="authserv.userDetails" style="float: left; margin-left: 10%">
+    <div>
+      <h2>Enter your look up area: </h2>
+      <input type="text" [(ngModel)]="address">
+      <button (click)=search()>Search</button>
+    </div>
+    <ul>
+      <li *ngFor="let place of places" (click)="getDetails(place.place_id)" style="cursor: pointer; color: blue;">{{place.name}}</li>
+    </ul>
+  </div>
+
+  <div style="float: right; margin-left: 10%">
+    <img [src]="imageUrl">
+  </div>
+
+
+  <div *ngIf="detailsReady"  style="clear: both; margin-left: 10%">
+    <h3>Details</h3>
+      <div style="margin-bottom: 20px">
+        <label>
+          <img src="{{placeDetails.icon}}" width="15px">{{placeDetails.name}}
+        </label>
+      </div>
+      
+      <Address>Address:{{placeDetails.formatted_address}}</Address>
+      <p>Phone:{{placeDetails.formatted_address}}</p>
+      <p>Website:{{placeDetails.website}}</p>
+      <p>Open Now:{{placeDetails.opening_hours.open_now}}</p>
+      <ul>
+        <li *ngFor="let day of placeDetails.opening_hours.weekday_text">{{day}}</li>
+      </ul>
+      <p>Rating:{{placeDetails.rating}}</p>
+      <p>Reviews:<a>{{placeDetails.reviews.length}}</a></p>
+  </div>
+</div>

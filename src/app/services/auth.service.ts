@@ -48,6 +48,7 @@ export class AuthService {
     if(this.userDetails == null){
       this._firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(x=>
         console.log(x));
+        this.router.navigateByUrl('/home');
     }
     else{
       return null;
@@ -56,9 +57,11 @@ export class AuthService {
 
   signInWithGoogle() {
     //console.log('Signing in with google');
-    return this._firebaseAuth.auth.signInWithPopup(
+    this._firebaseAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     ).then(x=>console.log(x));
+    this.router.navigateByUrl('/home');
+    
   }
 
   isLoggedIn() {
