@@ -8,7 +8,9 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './services/auth.service';
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HeaderInterceptor } from './interceptors/HeaderInterceptor';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,12 @@ import { environment } from '../environments/environment'
     AngularFireAuthModule,
   ],
   providers: [
-    AuthService
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

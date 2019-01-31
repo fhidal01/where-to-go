@@ -7,5 +7,8 @@ export const environment = {
     projectId: 'where-to-go-2acea',
     storageBucket: 'where-to-go-2acea.appspot.com',
     messagingSenderId: '508678585482'
+  },
+  api: {
+    baseURL: 'https://us-central1-where-to-go-sandbox.cloudfunctions.net/api'
   }
 };

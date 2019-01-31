@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AuthService } from './services/auth.service';
+import {environment} from '../environments/environment';
 
 interface Coordinates {
   lat: number;
@@ -34,13 +35,13 @@ export class AppComponent {
   detailsReady;
   placeDetails;
 
-  // url = 'https://us-central1-where-to-go-2acea.cloudfunctions.net';
-  url = 'http://localhost:5000/where-to-go-2acea/us-central1';
   txtEmail;
   txtPassword;
   txtEnterCredentials;
 
+  private apiURL;
   constructor(private http: HttpClient, private sanitizer: DomSanitizer, public authserv: AuthService) {
+    this.apiURL = environment.api.baseURL;
   }
 
   signUpWithEmailAndPassword() {
@@ -56,34 +57,36 @@ export class AppComponent {
       this.authserv.signInWithEmailAndPassword(this.txtEmail, this.txtPassword);
       this.txtEmail = '';
       this.txtPassword = '';
-    }
-    else {
+    } else {
       this.txtEnterCredentials = 'Please input email and password';
     }
   }
 
   search() {
     this.searching = true;
+    // this.authserv.userDetails.getIdToken(true).then(token => {
+      // const defaultHeaders = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+      this.imageUrl = `${this.apiURL}/map?address=${this.address}`;
 
-    this.imageUrl = `${this.url}/map?address=${this.address}`;
+      this.http.get(`${this.apiURL}/coordinates?address=${this.address}`)
+        .subscribe(value => {
+          const latitude = (value as MyResponse).results[0].geometry.location.lat;
+          const longitude = (value as MyResponse).results[0].geometry.location.lng;
 
-    this.http.get(`${this.url}/coordinates?address=${this.address}`)
-      .subscribe(value => {
-        const latitude = (value as MyResponse).results[0].geometry.location.lat;
-        const longitude = (value as MyResponse).results[0].geometry.location.lng;
+          this.http.get(`${this.apiURL}/places?latitude=${latitude}&longitude=${longitude}`)
+            .subscribe(places => {
+              this.places = (places as MyResponse).results;
+              this.searching = false;
+            });
 
-        this.http.get(`${this.url}/places?latitude=${latitude}&longitude=${longitude}`)
-          .subscribe(places => {
-            this.places = (places as MyResponse).results;
-            this.searching = false;
-          });
-
-      });
+        });
+    // });
   }
+
 
   getDetails(placeId) {
 
-    this.http.get(`${this.url}/placeDetails?place=${placeId}`)
+    this.http.get(`${this.apiURL}/placeDetails?place=${placeId}`)
       .subscribe((value: any) => {
         console.log(value.result);
         this.placeDetails = value.result;

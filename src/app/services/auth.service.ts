@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  
-  private user: Observable<firebase.User>
+
+  private user: Observable<firebase.User>;
   public userDetails: firebase.User = null;
 
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
@@ -21,8 +21,7 @@ export class AuthService {
         if (user) {
           this.userDetails = user;
           console.log(this.userDetails);
-        }
-        else {
+        } else {
           this.userDetails = null;
         }
       }
@@ -30,49 +29,46 @@ export class AuthService {
 
   }
 
-  signInAnonymous(){
+  signInAnonymous() {
     this._firebaseAuth.auth.signInAnonymously();
   }
 
-  signUpWithEmailAndPassword(email: string, password: string){
-    if(this.userDetails == null){
-      this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(x=>
+  signUpWithEmailAndPassword(email: string, password: string) {
+    if (this.userDetails == null) {
+      this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(x =>
         console.log(x));
-    }
-    else{
+    } else {
       return null;
     }
   }
 
-  signInWithEmailAndPassword(email: string, password: string){
-    if(this.userDetails == null){
-      this._firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(x=>
+  signInWithEmailAndPassword(email: string, password: string) {
+    if (this.userDetails == null) {
+      this._firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(x =>
         console.log(x));
-    }
-    else{
+    } else {
       return null;
     }
   }
 
   signInWithGoogle() {
-    //console.log('Signing in with google');
+    // console.log('Signing in with google');
     return this._firebaseAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
-    ).then(x=>console.log(x));
+    ).then(x => console.log(x));
   }
 
   isLoggedIn() {
-    if (this.userDetails == null ) {
-        return false;
-      } else {
-        return true;
-      }
+    if (this.userDetails == null) {
+      return false;
+    } else {
+      return true;
     }
+  }
   logout() {
     console.log('Logged Out');
-      this._firebaseAuth.auth.signOut()
-      .then((res) => 
-      this.router.navigate(['/']));
-    }
-
+    this._firebaseAuth.auth.signOut()
+      .then((res) =>
+        this.router.navigate(['/']));
   }
+}
