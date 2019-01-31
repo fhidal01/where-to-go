@@ -5,7 +5,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { AuthGuardService } from '../guards/auth-guard.service';
-//import 'firebaseui/dist/firebaseui';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +56,7 @@ export class AuthService {
     else{
       return null;
     }
+    
     //this.router.navigateByUrl('/home');
   }
   navigateHome(){
