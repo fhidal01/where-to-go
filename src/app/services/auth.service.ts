@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
+import { AuthGuardService } from '../guards/auth-guard.service';
+//import 'firebaseui/dist/firebaseui';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,7 @@ export class AuthService {
     this.user.subscribe(
       (user) => {
         if (user) {
+          debugger;
           this.userDetails = user;
           console.log(this.userDetails);
         }
@@ -45,14 +48,19 @@ export class AuthService {
   }
 
   signInWithEmailAndPassword(email: string, password: string){
+    debugger;
     if(this.userDetails == null){
       this._firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(x=>
         console.log(x));
-        this.router.navigateByUrl('/home');
+        debugger;
     }
     else{
       return null;
     }
+    //this.router.navigateByUrl('/home');
+  }
+  navigateHome(){
+    this.router.navigateByUrl('/home');
   }
 
   signInWithGoogle() {
@@ -65,6 +73,7 @@ export class AuthService {
   }
 
   isLoggedIn() {
+    debugger;
     if (this.userDetails == null ) {
         return false;
       } else {

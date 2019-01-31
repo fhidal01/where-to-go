@@ -6,9 +6,11 @@
     <p style="text-align:center;">Password</p>
     <input style="margin: auto;display: block;" type="password" [(ngModel)]="txtPassword" id="passwordInput"><br><br>
     <button style="margin: auto;display: block;" (click)="signInWithEmailAndPassword()">Login W/ email & password</button><br><br>
+    
     <button style="margin: auto;display: block;" (click)="authserv.signInWithGoogle()">Login With Google</button><br><br>
     <button style="margin:auto; display:block;" (click)="authserv.signInAnonymous()">Login as a guest</button><br><br>
     <button style="margin: auto;display: block;" (click)="signUpWithEmailAndPassword()">Signup!</button>
   </div>
+  <button style="margin: auto;display: block;" *ngIf="authserv.userDetails"(click)="authserv.navigateHome()">Navigate Home</button>
     <p style="text-align:center;" *ngIf="txtEnterCredentials">{{txtEnterCredentials}}</p>
 </div>
