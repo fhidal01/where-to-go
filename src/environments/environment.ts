@@ -13,7 +13,7 @@ export const environment = {
     messagingSenderId: '759411001464'
   },
   api: {
-    baseURL: 'https://us-central1-where-to-go-2acea.cloudfunctions.net/api'
+    baseURL: 'https://us-central1-where-to-go-sandbox.cloudfunctions.net/api'
   }
 };
 
