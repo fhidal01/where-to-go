@@ -19,7 +19,7 @@ function enableCORS(req: Request, response: Response): void {
     const allowedOrigins = config.cors.allowedorigins.split(',');
     const origin = req.headers['origin'] as string;
 
-    if (allowedOrigins.indexOf(origin)) {
+    if (allowedOrigins.indexOf(origin) !== -1) {
         response.setHeader('Access-Control-Allow-Origin', origin);
     }
 }

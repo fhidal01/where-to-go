@@ -34,8 +34,8 @@ export class AppComponent {
   detailsReady;
   placeDetails;
 
-  url = 'https://us-central1-where-to-go-2acea.cloudfunctions.net';
-  // url = 'http://localhost:5000/where-to-go-2acea/us-central1';
+  // url = 'https://us-central1-where-to-go-2acea.cloudfunctions.net';
+  url = 'http://localhost:5000/where-to-go-2acea/us-central1';
   txtEmail;
   txtPassword;
   txtEnterCredentials;
@@ -43,22 +43,21 @@ export class AppComponent {
   constructor(private http: HttpClient, private sanitizer: DomSanitizer, public authserv: AuthService) {
   }
 
-  signUpWithEmailAndPassword(){
-    if(this.txtEmail!=null && this.txtPassword != null){
-      this.authserv.signUpWithEmailAndPassword(this.txtEmail,this.txtPassword);
-    }
-    else{
+  signUpWithEmailAndPassword() {
+    if (this.txtEmail != null && this.txtPassword != null) {
+      this.authserv.signUpWithEmailAndPassword(this.txtEmail, this.txtPassword);
+    } else {
       this.txtEnterCredentials = 'Please input email and password';
     }
   }
 
-  signInWithEmailAndPassword(){
-    if( this.txtEmail!=null && this.txtPassword!=null ){
-      this.authserv.signInWithEmailAndPassword(this.txtEmail,this.txtPassword);
+  signInWithEmailAndPassword() {
+    if (this.txtEmail != null && this.txtPassword != null) {
+      this.authserv.signInWithEmailAndPassword(this.txtEmail, this.txtPassword);
       this.txtEmail = '';
       this.txtPassword = '';
     }
-    else{
+    else {
       this.txtEnterCredentials = 'Please input email and password';
     }
   }
