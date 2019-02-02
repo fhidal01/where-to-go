@@ -1,4 +1,3 @@
-
 <div style="width: 400px; margin-right:auto;margin-left:auto;">
   <div *ngIf="!authserv.userDetails">
     <p style="text-align:center;">Email</p>
@@ -6,11 +5,10 @@
     <p style="text-align:center;">Password</p>
     <input style="margin: auto;display: block;" type="password" [(ngModel)]="txtPassword" id="passwordInput"><br><br>
     <button style="margin: auto;display: block;" (click)="signInWithEmailAndPassword()">Login W/ email & password</button><br><br>
-    
+
     <button style="margin: auto;display: block;" (click)="authserv.signInWithGoogle()">Login With Google</button><br><br>
     <button style="margin:auto; display:block;" (click)="authserv.signInAnonymous()">Login as a guest</button><br><br>
     <button style="margin: auto;display: block;" (click)="signUpWithEmailAndPassword()">Signup!</button><br><br>
   </div>
-  <button style="margin: auto;display: block;" (click)="authserv.navigateHome()">Navigate Home</button>
-    <p style="text-align:center;" *ngIf="txtEnterCredentials">{{txtEnterCredentials}}</p>
+  <p style="text-align:center;" *ngIf="txtEnterCredentials">{{txtEnterCredentials}}</p>
 </div>

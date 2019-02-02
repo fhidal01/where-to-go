@@ -1,4 +1,3 @@
-
 <div *ngIf="searching" style="width: 100%; margin: auto; text-align: center">
   <h2>Searching....</h2>
 </div>
@@ -21,22 +20,22 @@
   </div>
 
 
-  <div *ngIf="detailsReady"  style="clear: both; margin-left: 10%">
+  <div *ngIf="detailsReady" style="clear: both; margin-left: 10%">
     <h3>Details</h3>
-      <div style="margin-bottom: 20px">
-        <label>
-          <img src="{{placeDetails.icon}}" width="15px">{{placeDetails.name}}
-        </label>
-      </div>
-      
-      <Address>Address:{{placeDetails.formatted_address}}</Address>
-      <p>Phone:{{placeDetails.formatted_address}}</p>
-      <p>Website:{{placeDetails.website}}</p>
-      <p>Open Now:{{placeDetails.opening_hours.open_now}}</p>
-      <ul>
-        <li *ngFor="let day of placeDetails.opening_hours.weekday_text">{{day}}</li>
-      </ul>
-      <p>Rating:{{placeDetails.rating}}</p>
-      <p>Reviews:<a>{{placeDetails.reviews.length}}</a></p>
+    <div style="margin-bottom: 20px">
+      <label>
+        <img src="{{placeDetails.icon}}" width="15px">{{placeDetails.name}}
+      </label>
+    </div>
+
+    <Address>Address:{{placeDetails.formatted_address}}</Address>
+    <p>Phone:{{placeDetails.formatted_address}}</p>
+    <p>Website:{{placeDetails.website}}</p>
+    <p>Open Now:{{placeDetails.opening_hours.open_now}}</p>
+    <ul>
+      <li *ngFor="let day of placeDetails.opening_hours.weekday_text">{{day}}</li>
+    </ul>
+    <p>Rating:{{placeDetails.rating}}</p>
+    <p>Reviews:<a>{{placeDetails.reviews.length}}</a></p>
   </div>
 </div>
