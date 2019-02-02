@@ -12,6 +12,8 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component'
 import { AuthGuardService } from './guards/auth-guard.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HeaderInterceptor } from './interceptors/HeaderInterceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,12 @@ import { AuthGuardService } from './guards/auth-guard.service';
   ],
   providers: [
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

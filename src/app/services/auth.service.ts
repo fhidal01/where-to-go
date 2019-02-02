@@ -22,8 +22,7 @@ export class AuthService {
         if (user) {
           this.userDetails = user;
           console.log(this.userDetails);
-        }
-        else {
+        } else {
           this.userDetails = null;
         }
       }
@@ -39,8 +38,7 @@ export class AuthService {
     if (this.userDetails == null) {
       this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(x =>
         console.log(x));
-    }
-    else {
+    } else {
       return null;
     }
   }

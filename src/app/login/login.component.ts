@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
   txtPassword;
   txtEnterCredentials;
 
+
+  
   constructor(public authserv: AuthService) {}
 
   signUpWithEmailAndPassword(){

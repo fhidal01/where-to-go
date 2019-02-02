@@ -11,6 +11,9 @@ export const environment = {
     projectId: 'where-to-go-sandbox',
     storageBucket: 'where-to-go-sandbox.appspot.com',
     messagingSenderId: '759411001464'
+  },
+  api: {
+    baseURL: 'https://us-central1-where-to-go-sandbox.cloudfunctions.net/api'
   }
 };
 
