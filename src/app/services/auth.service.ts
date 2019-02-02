@@ -30,9 +30,9 @@ export class AuthService {
 
   }
 
-  signInAnonymous() {
-    this._firebaseAuth.auth.signInAnonymously();
-  }
+  // signInAnonymous() {
+  //   this._firebaseAuth.auth.signInAnonymously();
+  // }
 
   signUpWithEmailAndPassword(email: string, password: string) {
     if (this.userDetails == null) {
@@ -43,26 +43,26 @@ export class AuthService {
     }
   }
 
-  signInWithEmailAndPassword(email: string, password: string) {
-    if (this.userDetails == null) {
-      this._firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(x => {
-        this.userDetails = x.user;
-        this.router.navigateByUrl('/home');
-      });
-    } else {
-      return null;
-    }
+  // signInWithEmailAndPassword(email: string, password: string) {
+  //   if (this.userDetails == null) {
+  //     this._firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(x => {
+  //       this.userDetails = x.user;
+  //       this.router.navigateByUrl('/home');
+  //     });
+  //   } else {
+  //     return null;
+  //   }
 
-  }
+  // }
 
-  signInWithGoogle() {
-    // console.log('Signing in with google');
-    this._firebaseAuth.auth.signInWithPopup(
-      new firebase.auth.GoogleAuthProvider()
-    ).then(x => console.log(x));
-    this.router.navigateByUrl('/home');
+  // signInWithGoogle() {
+  //   // console.log('Signing in with google');
+  //   this._firebaseAuth.auth.signInWithPopup(
+  //     new firebase.auth.GoogleAuthProvider()
+  //   ).then(x => console.log(x));
+  //   this.router.navigateByUrl('/home');
 
-  }
+  // }
 
   isLoggedIn() {
     if (this.userDetails == null) {

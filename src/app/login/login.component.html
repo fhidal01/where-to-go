@@ -1,4 +1,4 @@
-<div style="width: 400px; margin-right:auto;margin-left:auto;">
+<!-- <div style="width: 400px; margin-right:auto;margin-left:auto;">
   <div *ngIf="!authserv.userDetails">
     <p style="text-align:center;">Email</p>
     <input style="margin: auto;display: block;" [(ngModel)]="txtEmail" id="emailInput">
@@ -8,7 +8,10 @@
 
     <button style="margin: auto;display: block;" (click)="authserv.signInWithGoogle()">Login With Google</button><br><br>
     <button style="margin:auto; display:block;" (click)="authserv.signInAnonymous()">Login as a guest</button><br><br>
-    <button style="margin: auto;display: block;" (click)="signUpWithEmailAndPassword()">Signup!</button><br><br>
+    
   </div>
-  <p style="text-align:center;" *ngIf="txtEnterCredentials">{{txtEnterCredentials}}</p>
-</div>
+  
+</div> -->
+<button style="margin: auto;display: block;" (click)="signUpWithEmailAndPassword()">Signup!</button><br><br>
+<p style="text-align:center;" *ngIf="txtEnterCredentials">{{txtEnterCredentials}}</p>
+<firebase-ui></firebase-ui>
