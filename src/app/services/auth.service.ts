@@ -11,7 +11,7 @@ import { AuthGuardService } from '../guards/auth-guard.service';
 })
 export class AuthService {
 
-  private user: Observable<firebase.User>
+  private user: Observable<firebase.User>;
   public userDetails: firebase.User = null;
 
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
@@ -49,15 +49,14 @@ export class AuthService {
         this.userDetails = x.user;
         this.router.navigateByUrl('/home');
       });
-    }
-    else {
+    } else {
       return null;
     }
 
   }
 
   signInWithGoogle() {
-    //console.log('Signing in with google');
+    // console.log('Signing in with google');
     this._firebaseAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     ).then(x => console.log(x));
