@@ -2,6 +2,10 @@
 node_modules/
 functions/node_modules/
 
+.travis.yml
+package-lock.json
+functions/package-lock.json
+
 # build
 dist/
 
@@ -11,8 +15,3 @@ dist/
 #google cloud platform (gcp) functions
 functions/lib/
 functions/firebase-debug.log
-/functions/package-lock.json
-
-
-.travis.yml
-package-lock.json
