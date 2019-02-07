@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  name: 'where-to-go-sandbox',
   firebase: {
     apiKey: 'AIzaSyDtx_uucaQo-0wf43QBa2C6nev9eEKu0RQ',
     authDomain: 'where-to-go-sandbox.firebaseapp.com',
