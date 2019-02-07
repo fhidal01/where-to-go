@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
-import { AuthGuardService } from '../guards/auth-guard.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,51 +29,20 @@ export class AuthService {
 
   }
 
-  // signInAnonymous() {
-  //   this._firebaseAuth.auth.signInAnonymously();
-  // }
-
-  signUpWithEmailAndPassword(email: string, password: string) {
+  signUpWithEmailAndPassword(email: string, password: string): void {
     if (this.userDetails == null) {
       this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(x =>
         console.log(x));
-    } else {
-      return null;
     }
   }
-
-  // signInWithEmailAndPassword(email: string, password: string) {
-  //   if (this.userDetails == null) {
-  //     this._firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(x => {
-  //       this.userDetails = x.user;
-  //       this.router.navigateByUrl('/home');
-  //     });
-  //   } else {
-  //     return null;
-  //   }
-
-  // }
-
-  // signInWithGoogle() {
-  //   // console.log('Signing in with google');
-  //   this._firebaseAuth.auth.signInWithPopup(
-  //     new firebase.auth.GoogleAuthProvider()
-  //   ).then(x => console.log(x));
-  //   this.router.navigateByUrl('/home');
-
-  // }
 
   isLoggedIn() {
-    if (this.userDetails == null) {
-      return false;
-    } else {
-      return true;
-    }
+    return this.userDetails == null;
   }
+
   logout() {
-    console.log('Logged Out');
     this._firebaseAuth.auth.signOut()
-      .then((res) =>
+      .then(() =>
         this.router.navigate(['/']));
   }
 

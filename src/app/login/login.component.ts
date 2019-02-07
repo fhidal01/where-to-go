@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +12,10 @@ export class LoginComponent implements OnInit {
   txtPassword;
   txtEnterCredentials;
 
+  constructor(public authserv: AuthService) { }
 
-
-  constructor(public authserv: AuthService, public router: Router) { }
+  ngOnInit() {
+  }
 
   signUpWithEmailAndPassword() {
     if (this.txtEmail != null && this.txtPassword != null) {
@@ -23,26 +23,6 @@ export class LoginComponent implements OnInit {
     } else {
       this.txtEnterCredentials = 'Please input email and password';
     }
-  }
-
-  // signInWithEmailAndPassword() {
-  //   if (this.txtEmail != null && this.txtPassword != null) {
-  //     this.authserv.signInWithEmailAndPassword(this.txtEmail, this.txtPassword);
-  //     this.txtEmail = '';
-  //     this.txtPassword = '';
-  //   } else {
-  //     this.txtEnterCredentials = 'Please input email and password';
-  //   }
-  // }
-  goHome() {
-    this.router.navigateByUrl('/home');
-  }
-
-  failedLogin() {
-    console.log('Login Credentials Did Not Pass.');
-  }
-
-  ngOnInit() {
   }
 
 }

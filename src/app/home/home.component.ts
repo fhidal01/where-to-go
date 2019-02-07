@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { AuthService } from '../services/auth.service';
 import { environment } from '../../environments/environment';
+
+import { AuthService } from '../services/auth.service';
+import { LocationService } from '../services/location.service';
+import { PlacesService } from '../services/places.service';
 
 interface Coordinates {
   lat: number;
@@ -35,41 +37,41 @@ export class HomeComponent {
   detailsReady;
   placeDetails;
 
-  url = 'https://us-central1-where-to-go-2acea.cloudfunctions.net';
+  private apiURL: string;
 
-
-  private apiURL;
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer, public authserv: AuthService) {
+  constructor(
+    private http: HttpClient,
+    public authserv: AuthService,
+    private placesService: PlacesService,
+    private locationService: LocationService
+  ) {
     this.apiURL = environment.api.baseURL;
   }
 
   search() {
     this.searching = true;
-    // this.authserv.userDetails.getIdToken(true).then(token => {
-      // const defaultHeaders = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-      this.imageUrl = `${this.apiURL}/map?address=${this.address}`;
 
-      this.http.get(`${this.apiURL}/coordinates?address=${this.address}`)
-        .subscribe(value => {
-          const latitude = (value as MyResponse).results[0].geometry.location.lat;
-          const longitude = (value as MyResponse).results[0].geometry.location.lng;
+    this.imageUrl = `${this.apiURL}/map?address=${this.address}`;
 
-          this.http.get(`${this.apiURL}/places?latitude=${latitude}&longitude=${longitude}`)
-            .subscribe(places => {
-              this.places = (places as MyResponse).results;
-              this.searching = false;
-            });
+    this.locationService.getCoordinates(this.address).subscribe(
+      value => {
+        const latitude = (value as MyResponse).results[0].geometry.location.lat;
+        const longitude = (value as MyResponse).results[0].geometry.location.lng;
 
-        });
-    // });
+        this.placesService.getPlaces(latitude, longitude).subscribe(
+          places => {
+            this.places = (places as MyResponse).results;
+            this.searching = false;
+          }
+        );
+      }
+    );
   }
-
 
   getDetails(placeId) {
 
-    this.http.get(`${this.apiURL}/placeDetails?place=${placeId}`)
+    this.placesService.getPlaceDetails(placeId)
       .subscribe((value: any) => {
-        console.log(value.result);
         this.placeDetails = value.result;
         this.detailsReady = true;
       });

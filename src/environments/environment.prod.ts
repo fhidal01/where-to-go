@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  name: 'where-to-go-2acea',
   firebase: {
     apiKey: 'AIzaSyBI2AJDiKYoM4iLRn-vueueT_1lLhht_rk',
     authDomain: 'where-to-go-2acea.firebaseapp.com',
