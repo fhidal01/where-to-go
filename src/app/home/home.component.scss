@@ -1,0 +1,26 @@
+.search-bar {
+    width: 100%;
+}
+
+.search-pin {
+    margin-right: 10px !important;
+}
+
+.map-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.action-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+
+    button {
+        background-color: #EE6C4D; 
+        color: #EDEDED
+    }
+}
+

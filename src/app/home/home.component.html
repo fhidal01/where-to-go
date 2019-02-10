@@ -1,26 +1,43 @@
-<div *ngIf="searching" style="width: 100%; margin: auto; text-align: center">
-  <h2>Searching....</h2>
+
+<mat-form-field class="search-bar">
+  <mat-label><mat-icon>place</mat-icon> <b> Where are you looking?</b> </mat-label>
+  <input matInput placeholder="address or zip code" aria-label="location" [matAutocomplete]="auto" [(ngModel)]="address"
+    (ngModelChange)="fetchPredictions()" (keyup.enter)="fetchImage();searchByAddress()">
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let prediction of predictions" [value]="prediction.description" (click)="fetchImage();searchByPlaceID(prediction.place_id)">
+      <i class="fas fa-map-marker-alt search-pin"></i>
+      <span>{{prediction.structured_formatting.main_text}}</span>
+      <small> {{prediction.structured_formatting.secondary_text}}</small>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<div class="map-container">
+    <app-secure-image [src]="imageUrl"></app-secure-image>
 </div>
 
-<div *ngIf="!searching" style="width: 100%">
+<div class="action-container" *ngIf="imageUrl">
+    <button *ngIf="searching" mat-button>Searching ....</button>
+    <button *ngIf="!searching" mat-button>Lets GO!</button>
+</div>
 
-  <div *ngIf="authserv.userDetails" style="float: left; margin-left: 10%">
+
+<!-- <div *ngIf="!searching" style="width: 100%">
+</div> -->
+
+<!-- MOVE TO: RESULTS COMPONENT -->
+<!-- <div *ngIf="authserv.userDetails" style="float: left; margin-left: 10%">
     <div>
       <h2>Enter your look up area: </h2>
-      <input type="text" [(ngModel)]="address">
+      <input type="text" [(ngModel)]="address" (ngModelChange)="fetchPredictions()">
       <button (click)=search()>Search</button>
     </div>
     <ul>
       <li *ngFor="let place of places" (click)="getDetails(place.place_id)" style="cursor: pointer; color: blue;">{{place.name}}</li>
     </ul>
-  </div>
+  </div> -->
 
-  <div style="float: right; margin-left: 10%">
-    <app-secure-image [src]="imageUrl"></app-secure-image>
-  </div>
-
-
-  <div *ngIf="detailsReady" style="clear: both; margin-left: 10%">
+<!-- <div *ngIf="detailsReady" style="clear: both; margin-left: 10%">
     <h3>Details</h3>
     <div style="margin-bottom: 20px">
       <label>
@@ -37,5 +54,4 @@
     </ul>
     <p>Rating:{{placeDetails.rating}}</p>
     <p>Reviews:<a>{{placeDetails.reviews.length}}</a></p>
-  </div>
-</div>
+  </div> -->

@@ -8,12 +8,26 @@ export class LocationService {
 
   private apiURL: string;
 
+  public COORDINATE_TYPE = {
+    ADDRESS: 'address',
+    PLACE: 'place_id'
+  };
+
   constructor(private http: HttpClient) {
     this.apiURL = environment.api.baseURL;
   }
 
-  getCoordinates(address): Observable<any> {
-    return this.http.get(`${this.apiURL}/coordinates?address=${address}`);
+  getCoordinates(type: string, address: string): Observable<any> {
+    return this.http.get(`${this.apiURL}/coordinates?type=${type}&address=${address}`);
   }
 
+  getPredictions(input: string): Observable<any> {
+    return this.http.get(`${this.apiURL}/location/autocomplete?input=${input}`);
+  }
+
+}
+
+export enum COORDINATE_TYPE {
+  ADDRESS = 'address',
+  PLACE = 'place_id'
 }

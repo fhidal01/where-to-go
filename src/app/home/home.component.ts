@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 import { AuthService } from '../services/auth.service';
-import { LocationService } from '../services/location.service';
+import { LocationService, COORDINATE_TYPE } from '../services/location.service';
 import { PlacesService } from '../services/places.service';
 
 interface Coordinates {
@@ -28,7 +28,7 @@ interface MyResponse {
 })
 export class HomeComponent {
   title = 'where-to-go';
-  address: String = '';
+  address = '';
   binaryImage: any;
   displayImage = false;
   places: Array<Result>;
@@ -38,6 +38,7 @@ export class HomeComponent {
   placeDetails;
 
   private apiURL: string;
+  predictions: Array<any> = new Array<any>();
 
   constructor(
     private http: HttpClient,
@@ -48,33 +49,63 @@ export class HomeComponent {
     this.apiURL = environment.api.baseURL;
   }
 
-  search() {
-    this.searching = true;
+  fetchPredictions() {
+    this.imageUrl = null;
+    if (this.address.length >= 3) {
+      this.locationService.getPredictions(this.address).subscribe(
+        result => {
+          this.predictions = result.predictions;
+        }
+      );
+    } else {
+      this.clearPredictions();
+    }
+  }
 
+  fetchImage() {
+    this.clearPredictions();
     this.imageUrl = `${this.apiURL}/map?address=${this.address}`;
-
-    this.locationService.getCoordinates(this.address).subscribe(
-      value => {
-        const latitude = (value as MyResponse).results[0].geometry.location.lat;
-        const longitude = (value as MyResponse).results[0].geometry.location.lng;
-
-        this.placesService.getPlaces(latitude, longitude).subscribe(
-          places => {
-            this.places = (places as MyResponse).results;
-            this.searching = false;
-          }
-        );
-      }
-    );
   }
 
-  getDetails(placeId) {
-
-    this.placesService.getPlaceDetails(placeId)
-      .subscribe((value: any) => {
-        this.placeDetails = value.result;
-        this.detailsReady = true;
-      });
+  searchByAddress() {
+    this.searching = true;
+    this.fetchCoordinatesAndPlaces(COORDINATE_TYPE.ADDRESS, this.address);
   }
+
+  searchByPlaceID(placeId) {
+    this.searching = true;
+    this.fetchCoordinatesAndPlaces(COORDINATE_TYPE.PLACE, placeId);
+  }
+
+
+  private fetchCoordinatesAndPlaces(coordinateType: COORDINATE_TYPE, location: string): any {
+  this.locationService.getCoordinates(coordinateType, location).subscribe(
+    value => {
+      const latitude = (value as MyResponse).results[0].geometry.location.lat;
+      const longitude = (value as MyResponse).results[0].geometry.location.lng;
+
+      this.placesService.getPlaces(latitude, longitude).subscribe(
+        places => {
+          this.places = (places as MyResponse).results;
+          this.searching = false;
+
+          console.log(this.places);
+        }
+      );
+    }
+  );
+}
+
+  private clearPredictions() {
+  this.predictions.length = 0;
+}
+
+getDetails(placeId) {
+  // this.placesService.getPlaceDetails(placeId)
+  //   .subscribe((value: any) => {
+  //     this.placeDetails = value.result;
+  //     this.detailsReady = true;
+  //   });
+}
 
 }

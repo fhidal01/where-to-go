@@ -16,7 +16,15 @@ type Config = {
     }
 }
 
-const config = functions.config() as Config;
+//const config = functions.config() as Config;
+const config = {
+    "cors": {
+      "allowedorigins": "https://where-to-go-2acea.firebaseapp.com,https://where-to-go-sandbox.firebaseapp.com,http://localhost:4200"
+    },
+    "googleservice": {
+      "apikey": "AIzaSyD7M_ruVqDB8pnVpNuxY7m9_YRs6mCnPUw"
+    }
+  }
 
 const whitelist = config.cors.allowedorigins.split(',');
 const corsOptions = {
@@ -71,7 +79,7 @@ app.use(validateFirebaseIdToken);
 
 app.get('/coordinates', (request, response) => {
     httpClient.get(
-        { url: `https://maps.googleapis.com/maps/api/geocode/json?address=${request.query.address}&key=${config.googleservice.apikey}` },
+        { url: `https://maps.googleapis.com/maps/api/geocode/json?${request.query.type}=${request.query.address}&key=${config.googleservice.apikey}` },
         function (error, res, body) {
             if (!error && res.statusCode === 200) {
                 response.send(body);
@@ -91,11 +99,23 @@ app.get('/places', (request, response) => {
         });
 });
 
+app.get('/location/autocomplete', (request, response) => {
+    httpClient.get(
+        {
+            url: `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${request.query.input}&key=${config.googleservice.apikey}&sessiontoken=1234567890`
+        },
+        function (error, res, body) {
+            if (!error && res.statusCode === 200) {
+                response.send(body);
+            }
+        });
+});
+
 app.get('/map', (request, response) => {
     httpClient
         .defaults({ encoding: null })
         .get(
-            { url: `https://maps.googleapis.com/maps/api/staticmap?center=${request.query.address}&zoom=13&size=600x300&maptype=roadmap&markers=color:red%7C${request.query.address}&key=${config.googleservice.apikey}` },
+            { url: `https://maps.googleapis.com/maps/api/staticmap?center=${request.query.address}&zoom=13&size=800x500&maptype=roadmap&markers=color:red%7C${request.query.address}&key=${config.googleservice.apikey}` },
             function (error, res, body) {
                 if (!error && res.statusCode === 200) {
                     response.contentType("png");
