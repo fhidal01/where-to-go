@@ -1,5 +1,3 @@
-<mat-icon class="current-location-button" (click)="getCurrentLocation()">my_location</mat-icon>
-
 <div class="search-bar-container">
   <mat-form-field class="search-bar">
     <mat-label> <mat-icon>place</mat-icon> <b> Where are you looking?</b> </mat-label>
@@ -15,7 +13,7 @@
       [disabled]="fetchingCurrentLocation"
     />
   </mat-form-field>
-
+  <mat-icon class="current-location-button" (click)="getCurrentLocation()">my_location</mat-icon>
   <div class="predictions" #preds [hidden]="predictions.length === 0">
     <mat-option
       *ngFor="let prediction of predictions"
@@ -34,7 +32,8 @@
 </div>
 
 <div class="map-container">
-  <app-secure-image [src]="imageUrl"></app-secure-image>
+  <app-loading *ngIf="fetchingCurrentLocation"></app-loading>
+  <app-secure-image [src]="imageUrl" *ngIf="!fetchingCurrentLocation"></app-secure-image>
 </div>
 
 <div class="action-container" *ngIf="imageUrl">
