@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, OnChanges } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: "app-secure-image",
-  styleUrls: ["./secure-image.component.scss"],
+  selector: 'app-secure-image',
+  styleUrls: ['./secure-image.component.scss'],
   template: `
     <app-loading *ngIf="isImageLoading"></app-loading>
     <section *ngIf="imageToShow && !isImageLoading">
@@ -37,7 +37,7 @@ export class SecureImageComponent implements OnInit, OnChanges {
 
   getImage(url) {
     this.isImageLoading = true;
-    this.http.get(url, { responseType: "blob" }).subscribe(
+    this.http.get(url, { responseType: 'blob' }).subscribe(
       data => {
         this.createImageFromBlob(data);
         this.isImageLoading = false;
@@ -52,7 +52,7 @@ export class SecureImageComponent implements OnInit, OnChanges {
   createImageFromBlob(image: Blob) {
     const reader = new FileReader();
     reader.addEventListener(
-      "load",
+      'load',
       () => {
         this.imageToShow = reader.result;
       },

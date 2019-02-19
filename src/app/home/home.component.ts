@@ -1,11 +1,11 @@
-import { Component } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { environment } from "../../environments/environment";
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
-import { AuthService } from "../services/auth.service";
-import { LocationService, COORDINATE_TYPE } from "../services/location.service";
-import { PlacesService } from "../services/places.service";
-import { tick } from "@angular/core/src/render3";
+import { AuthService } from '../services/auth.service';
+import { LocationService, COORDINATE_TYPE } from '../services/location.service';
+import { PlacesService } from '../services/places.service';
+import { tick } from '@angular/core/src/render3';
 
 interface Coordinates {
   lat: number;
@@ -23,18 +23,18 @@ interface MyResponse {
 }
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"]
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  title = "where-to-go";
-  address = "";
+  title = 'where-to-go';
+  address = '';
   binaryImage: any;
   displayImage = false;
   places: Array<Result>;
   searching = false;
-  imageUrl = "";
+  imageUrl = '';
   detailsReady;
   placeDetails;
 
@@ -57,18 +57,15 @@ export class HomeComponent {
   getCurrentLocation() {
     this.fetchingCurrentLocation = true;
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        this.currentLocationSuccess.bind(this),
-        this.currentLocationFailure
-      );
+      navigator.geolocation.getCurrentPosition(this.currentLocationSuccess.bind(this), this.currentLocationFailure);
     } else {
       this.fetchingCurrentLocation = false;
-      console.log("Geolocation is not supported by this browser.");
+      console.log('Geolocation is not supported by this browser.');
     }
   }
 
   private currentLocationSuccess(position) {
-    this.address = "Current Location";
+    this.address = 'Current Location';
     this.fetchingCurrentLocation = false;
     this.fetchImage(`${position.coords.latitude},${position.coords.longitude}`);
     this.searchByGeoCode(position.coords.latitude, position.coords.longitude);
@@ -93,27 +90,20 @@ export class HomeComponent {
   moveUp() {
     if (this.predictions.length > 0) {
       this.selectedIndex =
-        this.selectedIndex === 0 || this.selectedIndex === -1
-          ? this.predictions.length
-          : this.selectedIndex;
+        this.selectedIndex === 0 || this.selectedIndex === -1 ? this.predictions.length : this.selectedIndex;
       this.selectedItem = this.predictions[--this.selectedIndex];
     }
   }
 
   moveDown() {
     if (this.predictions.length > 0) {
-      this.selectedIndex =
-        this.selectedIndex === this.predictions.length - 1
-          ? -1
-          : this.selectedIndex;
+      this.selectedIndex = this.selectedIndex === this.predictions.length - 1 ? -1 : this.selectedIndex;
       this.selectedItem = this.predictions[++this.selectedIndex];
     }
   }
 
   isSelected(prediction: any) {
-    return this.selectedItem
-      ? this.selectedItem.place_id === prediction.place_id
-      : false;
+    return this.selectedItem ? this.selectedItem.place_id === prediction.place_id : false;
   }
 
   fetchImage(address, fetchingCurrent = false) {
@@ -147,19 +137,13 @@ export class HomeComponent {
     this.getPlaces(latitude, longitude);
   }
 
-  private fetchCoordinatesAndPlaces(
-    coordinateType: COORDINATE_TYPE,
-    location: string
-  ): any {
-    this.locationService
-      .getCoordinates(coordinateType, location)
-      .subscribe(value => {
-        const latitude = (value as MyResponse).results[0].geometry.location.lat;
-        const longitude = (value as MyResponse).results[0].geometry.location
-          .lng;
+  private fetchCoordinatesAndPlaces(coordinateType: COORDINATE_TYPE, location: string): any {
+    this.locationService.getCoordinates(coordinateType, location).subscribe(value => {
+      const latitude = (value as MyResponse).results[0].geometry.location.lat;
+      const longitude = (value as MyResponse).results[0].geometry.location.lng;
 
-        this.getPlaces(latitude, longitude);
-      });
+      this.getPlaces(latitude, longitude);
+    });
   }
 
   private getPlaces(latitude, longitude) {

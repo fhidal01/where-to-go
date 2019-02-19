@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SecureImageComponent } from "./secure-image.component";
+import { SecureImageComponent } from './secure-image.component';
 
-describe("SecureImageComponent", () => {
+describe('SecureImageComponent', () => {
   let component: SecureImageComponent;
   let fixture: ComponentFixture<SecureImageComponent>;
 
@@ -18,7 +18,7 @@ describe("SecureImageComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
