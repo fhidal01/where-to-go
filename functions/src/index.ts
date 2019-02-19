@@ -18,8 +18,8 @@ type Config = {
   };
 };
 
-//const config = functions.config() as Config;
-const config = local;
+const config = functions.config() as Config;
+//const config = local;
 
 const whitelist = config.cors.allowedorigins.split(",");
 const corsOptions = {
@@ -132,23 +132,21 @@ app.get("/location/autocomplete", (request, response) => {
 });
 
 app.get("/map", (request, response) => {
-  httpClient
-    .defaults({ encoding: null })
-    .get(
-      {
-        url: `https://maps.googleapis.com/maps/api/staticmap?center=${
-          request.query.address
-        }&zoom=13&size=800x500&maptype=roadmap&markers=color:red%7C${
-          request.query.address
-        }&key=${config.googleservice.apikey}`
-      },
-      function(error, res, body) {
-        if (!error && res.statusCode === 200) {
-          response.contentType("png");
-          response.send(body);
-        }
+  httpClient.defaults({ encoding: null }).get(
+    {
+      url: `https://maps.googleapis.com/maps/api/staticmap?center=${
+        request.query.address
+      }&zoom=13&size=800x500&maptype=roadmap&markers=color:red%7C${
+        request.query.address
+      }&key=${config.googleservice.apikey}`
+    },
+    function(error, res, body) {
+      if (!error && res.statusCode === 200) {
+        response.contentType("png");
+        response.send(body);
       }
-    );
+    }
+  );
 });
 
 app.get("/placeDetails", (request, response) => {
