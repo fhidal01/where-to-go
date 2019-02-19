@@ -28,10 +28,11 @@ interface MyResponse {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  title = 'where-to-go';
   address = '';
-  binaryImage: any;
-  displayImage = false;
+  predictions: Array<any> = new Array<any>();
+  selectedItem: any;
+  selectedIndex = -1;
+  fetchingCurrentLocation: boolean;
   places: Array<Result>;
   searching = false;
   imageUrl = '';
@@ -39,11 +40,6 @@ export class HomeComponent {
   placeDetails;
 
   private apiURL: string;
-  predictions: Array<any> = new Array<any>();
-
-  selectedItem: any;
-  selectedIndex = -1;
-  fetchingCurrentLocation: boolean;
 
   constructor(
     private http: HttpClient,
