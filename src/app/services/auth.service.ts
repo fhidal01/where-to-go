@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { AngularFireAuth } from "angularfire2/auth";
-import * as firebase from "firebase/app";
-import { Observable } from "rxjs";
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AuthService {
   private user: Observable<firebase.User>;
@@ -26,9 +26,7 @@ export class AuthService {
 
   signUpWithEmailAndPassword(email: string, password: string): void {
     if (this.userDetails == null) {
-      this._firebaseAuth.auth
-        .createUserWithEmailAndPassword(email, password)
-        .then(x => console.log(x));
+      this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(x => console.log(x));
     }
   }
 
@@ -37,6 +35,6 @@ export class AuthService {
   }
 
   logout() {
-    this._firebaseAuth.auth.signOut().then(() => this.router.navigate(["/"]));
+    this._firebaseAuth.auth.signOut().then(() => this.router.navigate(['/']));
   }
 }

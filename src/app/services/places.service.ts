@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { environment } from "../../environments/environment";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class PlacesService {
@@ -12,9 +12,7 @@ export class PlacesService {
   }
 
   getPlaces(latitude, longitude): Observable<any> {
-    return this.http.get(
-      `${this.apiURL}/places?latitude=${latitude}&longitude=${longitude}`
-    );
+    return this.http.get(`${this.apiURL}/places?latitude=${latitude}&longitude=${longitude}`);
   }
 
   getPlaceDetails(id) {

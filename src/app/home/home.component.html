@@ -1,12 +1,8 @@
-<mat-icon class="current-location-button" (click)="getCurrentLocation()"
-  >my_location</mat-icon
->
+<mat-icon class="current-location-button" (click)="getCurrentLocation()">my_location</mat-icon>
 
 <div class="search-bar-container">
   <mat-form-field class="search-bar">
-    <mat-label>
-      <mat-icon>place</mat-icon> <b> Where are you looking?</b>
-    </mat-label>
+    <mat-label> <mat-icon>place</mat-icon> <b> Where are you looking?</b> </mat-label>
     <input
       matInput
       placeholder="address or zip code"
@@ -24,10 +20,7 @@
     <mat-option
       *ngFor="let prediction of predictions"
       [value]="prediction.description"
-      (click)="
-        optionClick(prediction.description);
-        searchByPlaceID(prediction.place_id)
-      "
+      (click)="optionClick(prediction.description); searchByPlaceID(prediction.place_id)"
       [class.hovering]="isSelected(prediction)"
     >
       <i class="fas fa-map-marker-alt search-pin"></i>
