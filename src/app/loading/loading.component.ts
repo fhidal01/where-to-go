@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-loading',
-  styleUrls: ['./loading.component.scss'],
+  selector: "app-loading",
+  styleUrls: ["./loading.component.scss"],
   template: `
-    <div class="lds-ripple"><div></div><div></div></div>
+    <div class="lds-ripple">
+      <div></div>
+      <div></div>
+    </div>
   `
 })
-export class LoadingComponent {
-}
+export class LoadingComponent {}
