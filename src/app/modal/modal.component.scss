@@ -1,0 +1,74 @@
+/* MODAL STYLES
+-------------------------------*/
+.w2g-modal {
+  /* modal container fixed across whole screen */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  /* z-index must be higher than .w2g-modal-background */
+  z-index: 1000;
+
+  /* enables scrolling for tall modals */
+  overflow: auto;
+
+  .w2g-modal-header {
+    text-align: center;
+    background-color: #fff;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    h3 {
+      margin: 0px;
+    }
+  }
+
+  .w2g-modal-body {
+    padding: 20px;
+    background: #fff;
+    //height: auto;
+    overflow-x: scroll;
+
+    /* margin exposes part of the modal background */
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .w2g-modal-footer {
+    text-align: center;
+    background-color: #ededed;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding: 15px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    button {
+      background-color: #ee6c4d;
+      color: #ededed;
+    }
+  }
+}
+
+.w2g-modal-background {
+  /* modal background fixed across whole screen */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  /* semi-transparent black  */
+  background-color: #000;
+  opacity: 0.75;
+
+  /* z-index must be below .w2g-modal and above everything else  */
+  z-index: 900;
+}

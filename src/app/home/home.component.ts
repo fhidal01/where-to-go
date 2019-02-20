@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
 import { LocationService, COORDINATE_TYPE } from '../services/location.service';
 import { PlacesService } from '../services/places.service';
-import { tick } from '@angular/core/src/render3';
+import { ModalService } from '../modal/modal.service';
 
 interface Coordinates {
   lat: number;
@@ -45,7 +45,8 @@ export class HomeComponent {
     private http: HttpClient,
     public authserv: AuthService,
     private placesService: PlacesService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private modalService: ModalService
   ) {
     this.apiURL = environment.api.baseURL;
   }
@@ -162,5 +163,13 @@ export class HomeComponent {
     //     this.placeDetails = value.result;
     //     this.detailsReady = true;
     //   });
+  }
+
+  openModal(id: string) {
+    console.log('clicked');
+    this.modalService.open(id);
+  }
+  closeModal(id: string) {
+    this.modalService.close(id);
   }
 }
