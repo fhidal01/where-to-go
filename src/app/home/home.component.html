@@ -1,3 +1,15 @@
+<div>
+  <button type="button" (click)="openModal('geo-not-supported')">Modal test</button>
+</div>
+
+<app-modal id="geo-not-supported" header="Not Supported" closeText="GOT IT!">
+  <p>Sorry but it seems like Geolocation is not supported by this browser. Please enter your location manually.</p>
+</app-modal>
+
+<app-modal id="geo-not-enabled" header="Error Encountered" closeText="GOT IT!">
+  <p>Some content</p>
+</app-modal>
+
 <div class="search-bar-container">
   <mat-form-field class="search-bar">
     <mat-label> <mat-icon>place</mat-icon> <b> Where are you looking?</b> </mat-label>
