@@ -18,17 +18,26 @@
 
 <div class="container">
   <form #form="ngForm" novalidate>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="text" name="email" ngModel>
+    <div class="form-group" [class.has-error]="email.dirty && email.invalid">
+      <label [class.control-label]="email.dirty && email.invalid">Email</label>
+      <input #email = "ngModel" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" required class="form-control" type="text" name="email"
+      [ngModel] = "model.email"
+      (ngModelChange)="model.email=$event">
+      <div *ngIf="email.dirty && email.invalid" class="alert alert-danger" role="alert">A valid email is required.</div>
     </div>
-    <div class="form-group">
-        <label>Password</label>
-        <input type="text" name="password" ngModel>
+    <div class="form-group" [class.has-error]="password.dirty && password.invalid">
+        <label [class.control-label]="password.dirty && password.invalid">Password</label>
+        <input required #password = "ngModel" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" class="form-control" type="password" name="password"
+        [ngModel] = "model.password"
+        (ngModelChange)="model.password=$event">
+        <div *ngIf="password.dirty && password.invalid" class="alert alert-danger" role="alert">A password with minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character is required.</div>
     </div>
-    <button class="btn btn-primary" type="submit"> Sign Up</button>
+    <button class="btn btn-primary" type="submit"
+    [disabled]="form.invalid"> Sign Up</button>
   </form>
+  Model: {{ model | json }}
+  <br>
+  Angular: {{ form.value | json }}
 </div>
-{{ form.pristine }}
 <firebase-ui *ngIf="!signUpToggle" (signInSuccessWithAuthResult)="goHome()"
 (signInFailure)="failedLogin()"></firebase-ui>

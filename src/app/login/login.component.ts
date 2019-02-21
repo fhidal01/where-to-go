@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl, EmailValidator } from '@angular/forms';
 import { $ } from 'protractor';
+import { Signup } from '../models/signup.model';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +14,9 @@ export class LoginComponent implements OnInit {
   txtPassword;
   txtEnterCredentials;
   signUpToggle = false;
-  model: any = {};
+  model = new Signup('', '');
 
-  constructor(public authserv: AuthService) { }
+  constructor(public authserv: AuthService) {}
 
   ngOnInit() {
   }
