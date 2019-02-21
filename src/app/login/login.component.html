@@ -1,4 +1,4 @@
-<div class="container">
+<div style="width:250px;margin-right:auto;margin-left:auto;" class="container">
   <form #form="ngForm" novalidate>
     <div class="form-group" [class.has-error]="email.dirty && email.invalid">
       <label [class.control-label]="email.dirty && email.invalid">Email</label>
@@ -13,15 +13,19 @@
       <input required #password="ngModel" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
         class="form-control" type="password" name="password" [ngModel]="model.password"
         (ngModelChange)="model.password=$event">
-      <div *ngIf="password.dirty && password.invalid" class="alert alert-danger" role="alert">A password with minimum
-        eight characters, at least one uppercase letter, one lowercase letter, one number and one special character is
-        required.</div>
+      <div *ngIf="password.dirty && password.invalid" class="alert alert-danger" role="alert">
+        <p style="text-align: center;font-size:18px;font-weight: bold">Password Must</p>
+        <ul>
+          <li>have eight characters</li>
+          <li>have at least one uppercase letter</li>
+          <li>one lowercase letter</li>
+          <li>one number</li>
+          <li>one special character</li>
+        </ul>
+      </div>
     </div>
     <button class="btn btn-primary" type="submit" [disabled]="form.invalid"> Sign Up</button>
   </form>
-  Model: {{ model | json }}
-  <br>
-  Angular: {{ form.value | json }}
 </div>
 <firebase-ui *ngIf="!signUpToggle" (signInSuccessWithAuthResult)="goHome()" (signInFailure)="failedLogin()">
 </firebase-ui>

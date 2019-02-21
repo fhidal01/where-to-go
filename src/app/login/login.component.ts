@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Validators, FormBuilder, FormGroup, FormControl, EmailValidator } from '@angular/forms';
 import { $ } from 'protractor';
-import { Signup } from '../models/signup.model';
+import { Signup } from '../models/Signup.model';
 
 @Component({
   selector: 'app-login',
