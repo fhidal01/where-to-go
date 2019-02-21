@@ -16,16 +16,15 @@ export class LoginComponent implements OnInit {
   signUpToggle = false;
   model = new Signup('', '');
 
-  constructor(public authserv: AuthService) { }
+  constructor(public authserv: AuthService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   signUpWithEmailAndPassword() {
     if (this.model.email != null && this.model.password != null) {
       this.authserv.signUpWithEmailAndPassword(this.model.email, this.model.password);
     }
   }
-
 
   showSignUp() {
     if (this.signUpToggle === false) {
@@ -34,6 +33,4 @@ export class LoginComponent implements OnInit {
     }
     this.signUpToggle = !this.signUpToggle;
   }
-
-
 }

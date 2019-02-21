@@ -7,6 +7,9 @@ import { LocationService, COORDINATE_TYPE } from '../services/location.service';
 import { PlacesService } from '../services/places.service';
 import { ModalService } from '../modal/modal.service';
 
+import { detect } from 'detect-browser';
+import browser from 'browser-detect';
+
 interface Coordinates {
   lat: number;
   lng: number;
@@ -41,6 +44,8 @@ export class HomeComponent {
 
   private apiURL: string;
 
+  bd: any = {};
+
   constructor(
     private http: HttpClient,
     public authserv: AuthService,
@@ -49,6 +54,8 @@ export class HomeComponent {
     private modalService: ModalService
   ) {
     this.apiURL = environment.api.baseURL;
+    this.bd.info = detect();
+    this.bd.detection = browser();
   }
 
   getCurrentLocation() {
