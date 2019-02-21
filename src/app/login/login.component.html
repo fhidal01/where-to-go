@@ -24,7 +24,8 @@
         </ul>
       </div>
     </div>
-    <button class="btn btn-primary" type="submit" [disabled]="form.invalid"> Sign Up</button>
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid" (click)="signUpWithEmailAndPassword()"> Sign
+      Up</button>
   </form>
 </div>
 <firebase-ui *ngIf="!signUpToggle" (signInSuccessWithAuthResult)="goHome()" (signInFailure)="failedLogin()">
