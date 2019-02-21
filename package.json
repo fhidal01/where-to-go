@@ -6,8 +6,9 @@
     "start": "ng serve --configuration=local",
     "build": "ng build",
     "test": "ng test",
+    "format:all": "pretty-quick",
     "format:fix": "pretty-quick --staged",
-    "format:check": "prettier --config ./.prettierrc --list-different \"src/{app,environments}/**/*{.ts,.js,.json,.css,.scss}\"",
+    "format:check": "prettier --config ./.prettierrc --list-different \"src/{app,environments}/**/*{.ts,.html,.js,.json,.css,.scss}\"",
     "precommit": "run-s format:fix lint",
     "lint": "ng lint",
     "e2e": "ng e2e"
