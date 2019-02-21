@@ -1,22 +1,3 @@
-<!-- <div *ngIf="signUpToggle" style="width: auto; margin-right:auto;margin-left:auto;">
-  <div *ngIf="!authserv.userDetails">
-    <form #form ="ngForm" novalidate>
-      <div class="form-group">
-      <input name="nameEmail" ngModel placeholder="Email" class="standard-input form-control" [(ngModel)]="txtEmail" id="emailInput"><br>
-      <input placeholder="Password" class="standard-input form-control" type="password" [(ngModel)]="txtPassword" id="passwordInput"><br><br>
-    </div>
-      <button class="standard-confirm-button" (click)="signUpWithEmailAndPassword()">Confirm</button><br>
-      {{ form.pristine }}
-    </form>
-  </div>
-
-<<<<<<< HEAD
-
-</div> 
-<button class="standard-button" *ngIf="!signUpToggle" (click)="showSignUp()">Signup!</button>
-<button class="standard-deny-button" *ngIf="signUpToggle" (click)="showSignUp()">Cancel</button>
-<p style="text-align:center;" *ngIf="txtEnterCredentials">{{txtEnterCredentials}}</p> -->
-
 <div class="container">
   <form #form="ngForm" novalidate>
     <div class="form-group" [class.has-error]="email.dirty && email.invalid">
