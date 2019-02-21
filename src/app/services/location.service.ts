@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class LocationService {
-
   private apiURL: string;
 
   public COORDINATE_TYPE = {
@@ -24,7 +23,6 @@ export class LocationService {
   getPredictions(input: string): Observable<any> {
     return this.http.get(`${this.apiURL}/location/autocomplete?input=${input}`);
   }
-
 }
 
 export enum COORDINATE_TYPE {

@@ -21,12 +21,14 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { SecureImageComponent } from './secure-image/secure-image.component';
 import { LoadingComponent } from './loading/loading.component';
+import { ModalComponent } from './modal/modal.component';
 
 // app-services
 import { AuthGuardService } from './guards/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { LocationService } from './services/location.service';
 import { PlacesService } from './services/places.service';
+import { ModalService } from './modal/modal.service';
 
 // app-modules
 import { AppRoutingModule } from './app-routing.module';
@@ -44,14 +46,9 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     },
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     {
-      scopes: [
-        'public_profile',
-        'email',
-        'user_likes',
-        'user_friends'
-      ],
+      scopes: ['public_profile', 'email', 'user_likes', 'user_friends'],
       customParameters: {
-        'auth_type': 'reauthenticate'
+        auth_type: 'reauthenticate'
       },
       provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID
     },
@@ -63,13 +60,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    HomeComponent,
-    SecureImageComponent,
-    LoadingComponent
-  ],
+  declarations: [AppComponent, LoginComponent, HomeComponent, SecureImageComponent, LoadingComponent, ModalComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -87,14 +78,15 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   providers: [
     AuthService,
     LocationService,
+    ModalService,
     PlacesService,
     AuthGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeaderInterceptor,
-      multi: true,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

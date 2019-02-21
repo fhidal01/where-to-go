@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "8.12.0"
+  - '8.12.0'
 
 # Sandbox Branch config
 if: branch = sandbox
@@ -20,6 +20,8 @@ script:
   - cd functions
   - npm run lint
   - npm run build
+  - cd ../
+  - npm run format:check
 
 after_success:
   - firebase deploy -P sandbox --token $FIREBASE_TOKEN

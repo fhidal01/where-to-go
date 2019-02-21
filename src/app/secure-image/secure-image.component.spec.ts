@@ -8,9 +8,8 @@ describe('SecureImageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SecureImageComponent ]
-    })
-    .compileComponents();
+      declarations: [SecureImageComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

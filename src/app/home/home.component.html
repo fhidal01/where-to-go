@@ -1,26 +1,57 @@
+<div>
+  <button type="button" (click)="openModal('geo-not-supported')">Modal test</button>
+</div>
 
-<mat-form-field class="search-bar">
-  <mat-label><mat-icon>place</mat-icon> <b> Where are you looking?</b> </mat-label>
-  <input matInput placeholder="address or zip code" aria-label="location" [matAutocomplete]="auto" [(ngModel)]="address"
-    (ngModelChange)="fetchPredictions()" (keyup.enter)="fetchImage();searchByAddress()">
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let prediction of predictions" [value]="prediction.description" (click)="fetchImage();searchByPlaceID(prediction.place_id)">
+<app-modal id="geo-not-supported" header="Not Supported" closeText="GOT IT!">
+  <p>Sorry but it seems like Geolocation is not supported by this browser. Please enter your location manually.</p>
+</app-modal>
+
+<app-modal id="geo-not-enabled" header="Error Encountered" closeText="GOT IT!">
+  <p>Some content</p>
+</app-modal>
+
+<div class="search-bar-container">
+  <mat-form-field class="search-bar">
+    <mat-label> <mat-icon>place</mat-icon> <b> Where are you looking?</b> </mat-label>
+    <input
+      matInput
+      placeholder="address or zip code"
+      aria-label="location"
+      [(ngModel)]="address"
+      (ngModelChange)="fetchPredictions()"
+      (keyup.enter)="fetchImage(address); searchByAddress()"
+      (keydown.arrowup)="moveUp()"
+      (keydown.arrowdown)="moveDown()"
+      [disabled]="fetchingCurrentLocation"
+    />
+  </mat-form-field>
+  <mat-icon class="current-location-button" (click)="getCurrentLocation()">my_location</mat-icon>
+  <div class="predictions" #preds [hidden]="predictions.length === 0">
+    <mat-option
+      *ngFor="let prediction of predictions"
+      [value]="prediction.description"
+      (click)="optionClick(prediction.description); searchByPlaceID(prediction.place_id)"
+      [class.hovering]="isSelected(prediction)"
+    >
       <i class="fas fa-map-marker-alt search-pin"></i>
-      <span>{{prediction.structured_formatting.main_text}}</span>
-      <small> {{prediction.structured_formatting.secondary_text}}</small>
+      <span>{{ prediction.structured_formatting.main_text }}</span>
+      <small> {{ prediction.structured_formatting.secondary_text }}</small>
     </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
+    <div class="poweredby-logo" #logo>
+      <img src="../../assets/powered_by_google_on_white.png" />
+    </div>
+  </div>
+</div>
 
 <div class="map-container">
-    <app-secure-image [src]="imageUrl"></app-secure-image>
+  <app-loading *ngIf="fetchingCurrentLocation"></app-loading>
+  <app-secure-image [src]="imageUrl" *ngIf="!fetchingCurrentLocation"></app-secure-image>
 </div>
 
 <div class="action-container" *ngIf="imageUrl">
-    <button *ngIf="searching" mat-button>Searching ....</button>
-    <button *ngIf="!searching" mat-button>Lets GO!</button>
+  <button *ngIf="searching" mat-button>Searching ....</button>
+  <button *ngIf="!searching" mat-button>Lets GO!</button>
 </div>
-
 
 <!-- <div *ngIf="!searching" style="width: 100%">
 </div> -->

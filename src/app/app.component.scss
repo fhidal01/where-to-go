@@ -5,7 +5,7 @@
 
   header {
     background-color: #293241;
-    color: #EDEDED;
+    color: #ededed;
     .text {
       text-align: center;
 
@@ -18,14 +18,14 @@
   }
 
   footer {
-      background-color: #293241;
-      color: #EDEDED;
-      text-align: center;
+    background-color: #293241;
+    color: #ededed;
+    text-align: center;
   }
 }
 
 .HolyGrail-body {
-  background-color: #EDEDED;
+  background-color: #ededed;
   display: flex;
   flex: 1;
 }
@@ -35,7 +35,8 @@
   padding: 25px;
 }
 
-.HolyGrail-nav, .HolyGrail-ads {
+.HolyGrail-nav,
+.HolyGrail-ads {
   /* 12em is the width of the columns */
   flex: 0 0 0em;
 }
@@ -65,7 +66,8 @@
     flex: 1;
     padding: 25px;
   }
-  .HolyGrail-nav, .HolyGrail-ads {
+  .HolyGrail-nav,
+  .HolyGrail-ads {
     /* 12em is the width of the columns */
     flex: 0 0 12em;
   }

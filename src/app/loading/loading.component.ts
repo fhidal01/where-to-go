@@ -4,8 +4,10 @@ import { Component } from '@angular/core';
   selector: 'app-loading',
   styleUrls: ['./loading.component.scss'],
   template: `
-    <div class="lds-ripple"><div></div><div></div></div>
+    <div class="lds-ripple">
+      <div></div>
+      <div></div>
+    </div>
   `
 })
-export class LoadingComponent {
-}
+export class LoadingComponent {}

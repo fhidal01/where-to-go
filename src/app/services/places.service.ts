@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class PlacesService {
-
   private apiURL: string;
 
   constructor(private http: HttpClient) {
@@ -19,5 +18,4 @@ export class PlacesService {
   getPlaceDetails(id) {
     return this.http.get(`${this.apiURL}/placeDetails?place=${id}`);
   }
-
 }
