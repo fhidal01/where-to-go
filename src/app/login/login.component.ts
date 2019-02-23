@@ -21,10 +21,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   signUpWithEmailAndPassword() {
-    if (this.txtEmail != null && this.txtPassword != null) {
-      this.authserv.signUpWithEmailAndPassword(this.txtEmail, this.txtPassword);
+    if (this.model.email != null && this.model.password != null) {
+      this.authserv.signUpWithEmailAndPassword(this.model.email, this.model.password);
     } else {
-      this.txtEnterCredentials = 'Please input email and password';
     }
   }
 
