@@ -1,16 +1,11 @@
-<div>
-  <button type="button" (click)="openModal('geo-not-supported')">Modal test</button>
-</div>
-
 <app-modal id="geo-not-supported" header="Not Supported" closeText="GOT IT!">
-  <pre>{{ bd | json }}</pre>
+  <p class="center-text">
+    Sorry but it seems like Geolocation is not supported by this browser. Please enter your location manually.
+  </p>
 </app-modal>
-<!-- <app-modal id="geo-not-supported" header="Not Supported" closeText="GOT IT!">
-  <p>Sorry but it seems like Geolocation is not supported by this browser. Please enter your location manually.</p>
-</app-modal> -->
 
-<app-modal id="geo-not-enabled" header="Error Encountered" closeText="GOT IT!">
-  <p>Some content</p>
+<app-modal id="geo-not-enabled" header="Location Services Disabled" closeText="GOT IT!" height="80vh">
+  <ng-container *ngIf="browser.mobile; then mobileDocs; else desktopDocs"> </ng-container>
 </app-modal>
 
 <div class="search-bar-container">
@@ -41,7 +36,7 @@
       <small> {{ prediction.structured_formatting.secondary_text }}</small>
     </mat-option>
     <div class="poweredby-logo" #logo>
-      <img src="../../assets/powered_by_google_on_white.png" />
+      <img src="assets/powered_by_google_on_white.png" />
     </div>
   </div>
 </div>
@@ -89,3 +84,91 @@
     <p>Rating:{{placeDetails.rating}}</p>
     <p>Reviews:<a>{{placeDetails.reviews.length}}</a></p>
   </div> -->
+
+<ng-template #mobileDocs>
+  <span *ngIf="browser.os === 'IOS'">
+    iOS instructions
+  </span>
+  <span *ngIf="browser.os === 'ANDROID'">
+    Andriod instructions
+  </span>
+  <span *ngIf="browser.os === 'OTHER'">
+    Generic Enable Location in settings message
+  </span>
+</ng-template>
+<ng-template #desktopDocs>
+  <div class="modal-content">
+    <p>Seems like you have Blocked or Denied Geloation Services in your broser. Here is how you can re-enable it:</p>
+    <p>Go the your browsers URL bar and you should see a target icon.</p>
+    <section>
+      <div class="”media”">
+        <img class="flex-image" src="assets/location_browser/target-icon.png" />
+      </div>
+    </section>
+    <p>When you click on the icon you will see a pop-up. Click on the <strong>Manage</strong> button.</p>
+    <section>
+      <div class="”media”">
+        <img class="flex-image" src="assets/location_browser/mng-button.png" />
+      </div>
+    </section>
+    <p>
+      This will take you to another page where you can manage which sites are allowed to access your location and which
+      sites can not. Look for https://w2g.com in the <strong>Block</strong> section and click on the trash icon on the
+      right hand side to remove it from the blocked list.
+    </p>
+    <section>
+      <div class="”media”">
+        <img class="flex-image" src="assets/location_browser/setting-page.png" />
+      </div>
+    </section>
+    <p>
+      Come back to the app and try getting your current location again. This time you will be propmted with a message
+      asking for your permission to access to your location. Click <strong>Allow</strong>.
+    </p>
+    <section>
+      <div class="”media”">
+        <img class="flex-image" src="assets/location_browser/allow-prompt.png" />
+      </div>
+    </section>
+    <br />
+    <p>
+      <strong>Didn't see https://w2g.com in the block section?</strong><br />
+      If https://w2g.com isn't listed in the block section.
+    </p>
+    <section>
+      <div class="”media”">
+        <img class="flex-image" src="assets/location_browser/empty-block.png" />
+      </div>
+    </section>
+    <p>Go back to the app and click on the icon in the URL bar.</p>
+    <section>
+      <div class="”media”">
+        <img class="flex-image" src="assets/location_browser/info-url-bar.png" />
+      </div>
+    </section>
+    <p>Then click on the Location options in the drop-down, and select <strong>Allow</strong>. And close the pop-up.</p>
+    <section>
+      <div class="”media”">
+        <img class="flex-image" src="assets/location_browser/info-allow.png" />
+      </div>
+    </section>
+    <p>
+      A banner will apear prompting you to reload the page. Click <strong>Reload</strong>. And try getting your current
+      location again.
+    </p>
+    <section>
+      <div class="”media”">
+        <img class="flex-image" src="assets/location_browser/reload.png" />
+      </div>
+    </section>
+    <p>
+      This time you will be propmted with a message asking for your permission to access to your location. Click
+      <strong>Allow</strong>.
+    </p>
+    <section>
+      <div class="”media”">
+        <img class="flex-image" src="assets/location_browser/allow-prompt.png" />
+      </div>
+    </section>
+  </div>
+</ng-template>

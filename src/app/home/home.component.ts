@@ -7,8 +7,8 @@ import { LocationService, COORDINATE_TYPE } from '../services/location.service';
 import { PlacesService } from '../services/places.service';
 import { ModalService } from '../modal/modal.service';
 
-import { detect } from 'detect-browser';
 import browser from 'browser-detect';
+import { BrowserDetectInfo } from 'browser-detect/dist/types/browser-detect.interface';
 
 interface Coordinates {
   lat: number;
@@ -44,7 +44,7 @@ export class HomeComponent {
 
   private apiURL: string;
 
-  bd: any = {};
+  browser: any = {};
 
   constructor(
     private http: HttpClient,
@@ -54,17 +54,35 @@ export class HomeComponent {
     private modalService: ModalService
   ) {
     this.apiURL = environment.api.baseURL;
-    this.bd.info = detect();
-    this.bd.detection = browser();
+    this.browser = this.setBrowserOS(browser());
+  }
+
+  private setBrowserOS(browserInfo: BrowserDetectInfo): BrowserDetectInfo {
+    const brws = browserInfo;
+
+    if (browserInfo.os === undefined) {
+      brws.os = 'OTHER';
+    } else if (browserInfo.os === 'OS X') {
+      brws.os = 'IOS';
+    } else if (browserInfo.os.includes('Android')) {
+      brws.os = 'ANDROID';
+    } else {
+      brws.os = 'OTHER';
+    }
+
+    return brws;
   }
 
   getCurrentLocation() {
     this.fetchingCurrentLocation = true;
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.currentLocationSuccess.bind(this), this.currentLocationFailure);
+      navigator.geolocation.getCurrentPosition(
+        this.currentLocationSuccess.bind(this),
+        this.currentLocationFailure.bind(this)
+      );
     } else {
       this.fetchingCurrentLocation = false;
-      console.log('Geolocation is not supported by this browser.');
+      this.openModal('geo-not-supported');
     }
   }
 
@@ -77,7 +95,7 @@ export class HomeComponent {
 
   private currentLocationFailure(error) {
     this.fetchingCurrentLocation = false;
-    console.log(error.message);
+    this.openModal('geo-not-enabled');
   }
 
   fetchPredictions() {
