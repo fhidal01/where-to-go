@@ -87,7 +87,9 @@
 
 <ng-template #mobileDocs>
   <span *ngIf="browser.os === 'IOS'">
-    iOS instructions
+    <p>iOS instructions</p>
+    <br />
+    <pre>{{ modalMsg | json }}</pre>
   </span>
   <span *ngIf="browser.os === 'ANDROID'">
     Andriod instructions

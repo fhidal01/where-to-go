@@ -41,6 +41,7 @@ export class HomeComponent {
   imageUrl = '';
   detailsReady;
   placeDetails;
+  modalMsg: any;
 
   private apiURL: string;
 
@@ -82,6 +83,7 @@ export class HomeComponent {
       );
     } else {
       this.fetchingCurrentLocation = false;
+      this.modalMsg = 'not supported';
       this.openModal('geo-not-supported');
     }
   }
@@ -95,6 +97,8 @@ export class HomeComponent {
 
   private currentLocationFailure(error) {
     this.fetchingCurrentLocation = false;
+    this.modalMsg = `${error.code}) ${error.message}`;
+    console.log(error);
     this.openModal('geo-not-enabled');
   }
 
