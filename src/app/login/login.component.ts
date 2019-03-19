@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   signUpWithEmailAndPassword() {
     if (this.model.email != null && this.model.password != null) {
       this.authserv.signUpWithEmailAndPassword(this.model.email, this.model.password);
+    } else {
     }
   }
 

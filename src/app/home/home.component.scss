@@ -69,3 +69,30 @@
     color: #ededed;
   }
 }
+
+.center-text {
+  text-align: center;
+}
+
+#img-target-icon {
+  background-image: url('/src/assets/location_browser/target-icon.png');
+}
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+
+  .media {
+    min-width: 0;
+    margin: 5px;
+  }
+  img {
+    max-width: 100%;
+    border: 1px solid #cacaca;
+  }
+}
+
+.modal-content {
+  max-width: 600px;
+  margin: auto;
+}
