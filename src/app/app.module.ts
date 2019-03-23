@@ -25,6 +25,7 @@ import { ModalComponent } from './modal/modal.component';
 
 // app-services
 import { AuthGuardService } from './guards/auth-guard.service';
+import { LoginGuardService } from './guards/login-guard.service';
 import { AuthService } from './services/auth.service';
 import { LocationService } from './services/location.service';
 import { PlacesService } from './services/places.service';
@@ -38,7 +39,6 @@ import { environment } from '../environments/environment';
 import { HeaderInterceptor } from './interceptors/HeaderInterceptor';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
-  signInFlow: 'popup',
   signInOptions: [
     {
       requireDisplayName: false,
@@ -56,7 +56,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   ],
   tosUrl: '<your-tos-link>',
   privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
-  credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
+  credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
 };
 
 @NgModule({
@@ -81,6 +81,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ModalService,
     PlacesService,
     AuthGuardService,
+    LoginGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeaderInterceptor,

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -24,17 +24,15 @@ export class AuthService {
     });
   }
 
-  signUpWithEmailAndPassword(email: string, password: string): void {
-    if (this.userDetails == null) {
-      this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(x => console.log(x));
-    }
+  signUpWithEmailAndPassword(email: string, password: string): Promise<firebase.auth.UserCredential> {
+    return this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
   isLoggedIn() {
-    return this.userDetails == null;
+    return this.userDetails != null;
   }
 
   logout() {
-    this._firebaseAuth.auth.signOut().then(() => this.router.navigate(['/']));
+    this._firebaseAuth.auth.signOut().then(() => this.router.navigate(['/login']));
   }
 }

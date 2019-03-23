@@ -7,7 +7,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable()
-export class AuthGuardService implements CanActivate {
+export class LoginGuardService implements CanActivate {
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
@@ -15,9 +15,14 @@ export class AuthGuardService implements CanActivate {
       map(user => {
         return !!user;
       }),
-      tap(isloggedIn => {
-        if (!isloggedIn) {
-          this.router.navigate(['/login']);
+      tap(loggedIn => {
+        if (loggedIn) {
+          this.router.navigate(['/home']);
+        }
+      }),
+      map(loggedIn => {
+        if (!loggedIn) {
+          return true;
         }
       })
     );

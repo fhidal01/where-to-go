@@ -1,0 +1,44 @@
+.signup-input {
+  width: 100%;
+}
+
+#password-requirements {
+  padding: 0 24px;
+  display: flex;
+  margin-top: 15px;
+
+  div:first-child {
+    width: 69%;
+    opacity: 0.7;
+
+    p {
+      margin-top: 0px;
+      margin-bottom: 0px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    ul {
+      padding-left: 24px;
+      font-size: 12px;
+    }
+  }
+
+  div:last-child {
+    width: 31%;
+    align-self: center;
+  }
+}
+
+#seperator {
+  padding: 0 24px;
+  margin: 15px 0 15px 0;
+
+  div {
+    margin: auto;
+    width: 45px;
+    background-color: white;
+    margin-top: -20px;
+    text-align: center;
+  }
+}

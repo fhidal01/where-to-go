@@ -1,37 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { Validators, FormBuilder, FormGroup, FormControl, EmailValidator } from '@angular/forms';
-import { $ } from 'protractor';
+import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Signup } from '../models/Signup.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  txtEmail;
-  txtPassword;
-  txtEnterCredentials;
-  signUpToggle = false;
-  model = new Signup('', '');
+export class LoginComponent implements OnInit, AfterViewInit {
+  model = new Signup();
 
-  constructor(public authserv: AuthService) {}
+  constructor(private router: Router, public authserv: AuthService, private elementRef: ElementRef) {}
 
   ngOnInit() {}
 
-  signUpWithEmailAndPassword() {
-    if (this.model.email != null && this.model.password != null) {
-      this.authserv.signUpWithEmailAndPassword(this.model.email, this.model.password);
-    } else {
-    }
+  ngAfterViewInit() {
+    this.elementRef.nativeElement.querySelector('firebase-ui').addEventListener('click', this.onClick.bind(this));
   }
 
-  showSignUp() {
-    if (this.signUpToggle === false) {
-      this.txtEmail = '';
-      this.txtPassword = '';
-    }
-    this.signUpToggle = !this.signUpToggle;
+  onClick(event) {
+    console.log(event);
+  }
+
+  signUpWithEmailAndPassword() {
+    this.authserv.signUpWithEmailAndPassword(this.model.email, this.model.password).then(x => {
+      console.log({ x });
+      this.router.navigate(['/home']);
+    });
+  }
+
+  goHome() {
+    console.log('nav home');
+    this.router.navigate(['/home']);
   }
 }
