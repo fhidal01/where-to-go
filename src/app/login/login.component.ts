@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Signup } from '../models/Signup.model';
 import { AuthService } from '../services/auth.service';
 
@@ -10,8 +10,22 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   model = new Signup();
+  showSignup: boolean;
 
-  constructor(private router: Router, public authserv: AuthService, private elementRef: ElementRef) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    public authserv: AuthService,
+    private elementRef: ElementRef
+  ) {
+    this.route.queryParamMap.subscribe(queryParams => {
+      if (queryParams.get('mode')) {
+        this.showSignup = false;
+      } else {
+        this.showSignup = true;
+      }
+    });
+  }
 
   ngOnInit() {}
 

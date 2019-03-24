@@ -1,5 +1,5 @@
 <div class="mdl-card mdl-shadow--2dp firebaseui-container">
-  <form #form="ngForm" novalidate>
+  <form #form="ngForm" *ngIf="showSignup" novalidate>
     <div class="firebaseui-card-header">
       <h1 class="firebaseui-title">Create Account</h1>
     </div>
@@ -63,7 +63,7 @@
     </div>
   </form>
 
-  <div id="seperator">
+  <div id="seperator" *ngIf="showSignup">
     <hr />
     <div>
       OR
