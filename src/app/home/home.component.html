@@ -8,12 +8,11 @@
   <ng-container *ngIf="browser.mobile; then mobileDocs; else desktopDocs"> </ng-container>
 </app-modal>
 
-<div class="search-bar-container">
-  <mat-form-field class="search-bar">
-    <mat-label> <mat-icon>place</mat-icon> <b> Where are you looking?</b> </mat-label>
+<div class="mdl-card mdl-shadow--2dp firebaseui-container home">
+  <div class="search-bar-container">
     <input
-      matInput
-      placeholder="address or zip code"
+      class="location"
+      placeholder="Address or Zip Code"
       aria-label="location"
       [(ngModel)]="address"
       (ngModelChange)="fetchPredictions()"
@@ -22,28 +21,31 @@
       (keydown.arrowdown)="moveDown()"
       [disabled]="fetchingCurrentLocation"
     />
-  </mat-form-field>
-  <mat-icon class="current-location-button" (click)="getCurrentLocation()">my_location</mat-icon>
-  <div class="predictions" #preds [hidden]="predictions.length === 0">
-    <mat-option
-      *ngFor="let prediction of predictions"
-      [value]="prediction.description"
-      (click)="optionClick(prediction.description); searchByPlaceID(prediction.place_id)"
-      [class.hovering]="isSelected(prediction)"
-    >
-      <i class="fas fa-map-marker-alt search-pin"></i>
-      <span>{{ prediction.structured_formatting.main_text }}</span>
-      <small> {{ prediction.structured_formatting.secondary_text }}</small>
-    </mat-option>
-    <div class="poweredby-logo" #logo>
-      <img src="assets/powered_by_google_on_white.png" />
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="getCurrentLocation()">
+      <mat-icon class="current-location-button">my_location</mat-icon>
+    </button>
+
+    <div class="predictions" #preds [hidden]="predictions.length === 0">
+      <mat-option
+        *ngFor="let prediction of predictions"
+        [value]="prediction.description"
+        (click)="optionClick(prediction.description); searchByPlaceID(prediction.place_id)"
+        [class.hovering]="isSelected(prediction)"
+      >
+        <i class="fas fa-map-marker-alt search-pin"></i>
+        <span>{{ prediction.structured_formatting.main_text }}</span>
+        <small> {{ prediction.structured_formatting.secondary_text }}</small>
+      </mat-option>
+      <div class="poweredby-logo" #logo>
+        <img src="assets/powered_by_google_on_white.png" />
+      </div>
     </div>
   </div>
-</div>
 
-<div class="map-container">
-  <app-loading *ngIf="fetchingCurrentLocation"></app-loading>
-  <app-secure-image [src]="imageUrl" *ngIf="!fetchingCurrentLocation"></app-secure-image>
+  <div class="map-container">
+    <app-loading *ngIf="fetchingCurrentLocation"></app-loading>
+    <app-secure-image [src]="imageUrl" *ngIf="!fetchingCurrentLocation"></app-secure-image>
+  </div>
 </div>
 
 <div class="action-container" *ngIf="imageUrl">

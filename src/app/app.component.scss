@@ -10,12 +10,13 @@
     .text {
       margin-bottom: 0px;
       text-align: center;
+    }
 
-      .icon {
-        float: right;
-        margin-right: 25px;
-        cursor: pointer;
-      }
+    .icon {
+      position: absolute;
+      right: 25px;
+      top: 21px;
+      cursor: pointer;
     }
   }
 

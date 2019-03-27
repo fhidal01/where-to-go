@@ -2,15 +2,13 @@
   <header>
     <h3 class="text">
       Desicions Made Simple
-      <i class="fas fa-sign-out-alt icon" *ngIf="authserv.userDetails" (click)="authserv.logout()"></i>
     </h3>
+    <i class="fas fa-lg fa-sign-out-alt icon" *ngIf="authserv.userDetails" (click)="authserv.logout()"></i>
   </header>
   <div class="HolyGrail-body">
     <main class="HolyGrail-content">
       <router-outlet></router-outlet>
     </main>
-    <!-- <nav class="HolyGrail-nav"></nav>
-    <aside class="HolyGrail-ads"></aside> -->
   </div>
   <footer>
     <!-- <p>VA Builders © 2019</p> -->
