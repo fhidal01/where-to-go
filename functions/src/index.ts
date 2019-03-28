@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 import * as httpClient from 'request';
 import * as cors from 'cors';
 
-import { local } from './localconfig';
+//import { local } from './localconfig';
 
 admin.initializeApp();
 const express = require('express');
@@ -18,8 +18,8 @@ type Config = {
   };
 };
 
-//const config = functions.config() as Config;
-const config = local;
+const config = functions.config() as Config;
+//const config = local;
 
 const whitelist = config.cors.allowedorigins.split(',');
 const corsOptions = {
