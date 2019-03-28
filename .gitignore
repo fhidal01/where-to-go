@@ -15,3 +15,4 @@ dist/
 #google cloud platform (gcp) functions
 functions/lib/
 functions/firebase-debug.log
+/functions/src/localconfig

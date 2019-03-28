@@ -50,7 +50,7 @@
 
 <div class="action-container" *ngIf="imageUrl">
   <button *ngIf="searching" mat-button>Searching ....</button>
-  <button *ngIf="!searching" mat-button>Lets GO!</button>
+  <button [routerLink]="['/results']" *ngIf="!searching" mat-button>Lets GO!</button>
 </div>
 
 <!-- <div *ngIf="!searching" style="width: 100%">

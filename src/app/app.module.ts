@@ -37,6 +37,7 @@ import { AppMaterialModule } from './app-material.module';
 
 import { environment } from '../environments/environment';
 import { HeaderInterceptor } from './interceptors/HeaderInterceptor';
+import { ResultsComponent } from './results/results.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInOptions: [
@@ -60,7 +61,15 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
 };
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, SecureImageComponent, LoadingComponent, ModalComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    ResultsComponent,
+    SecureImageComponent,
+    LoadingComponent,
+    ModalComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -80,6 +89,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     LocationService,
     ModalService,
     PlacesService,
+    HomeComponent,
     AuthGuardService,
     LoginGuardService,
     {
