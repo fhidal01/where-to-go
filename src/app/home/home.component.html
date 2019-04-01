@@ -21,11 +21,14 @@
       (keydown.arrowdown)="moveDown()"
       [disabled]="fetchingCurrentLocation"
     />
-    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="getCurrentLocation()">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="native()">
       <mat-icon class="current-location-button">my_location</mat-icon>
     </button>
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="web()">
+      <mat-icon class="current-location-button">mail</mat-icon>
+    </button>
 
-    <div class="predictions" #preds [hidden]="predictions.length === 0">
+    <div class="predictions" #preds [hidden]="predictions.length === 0 || fetchingCurrentLocation">
       <mat-option
         *ngFor="let prediction of predictions"
         [value]="prediction.description"
@@ -43,7 +46,7 @@
   </div>
 
   <div class="map-container">
-    <app-loading *ngIf="fetchingCurrentLocation"></app-loading>
+    <!-- <app-loading *ngIf="fetchingCurrentLocation"></app-loading> -->
     <app-secure-image [src]="imageUrl" *ngIf="!fetchingCurrentLocation"></app-secure-image>
   </div>
 </div>

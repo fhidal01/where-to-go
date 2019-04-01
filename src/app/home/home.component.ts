@@ -74,6 +74,13 @@ export class HomeComponent {
     return brws;
   }
 
+  native() {
+    window.open('maps://maps.google.com/maps?daddr=lat,long&amp;ll=');
+  }
+  web() {
+    window.open('https://maps.google.com/maps?daddr=lat,long&amp;ll=');
+  }
+
   getCurrentLocation() {
     this.fetchingCurrentLocation = true;
     if (navigator.geolocation) {
@@ -93,6 +100,14 @@ export class HomeComponent {
     this.fetchingCurrentLocation = false;
     this.fetchImage(`${position.coords.latitude},${position.coords.longitude}`);
     this.searchByGeoCode(position.coords.latitude, position.coords.longitude);
+  }
+
+  fetchImage(address) {
+    if (this.selectedIndex !== -1) {
+      this.address = this.predictions[this.selectedIndex].description;
+    }
+    this.clearPredictions();
+    this.imageUrl = `${this.apiURL}/map?address=${address}`;
   }
 
   private currentLocationFailure(error) {
@@ -130,14 +145,6 @@ export class HomeComponent {
 
   isSelected(prediction: any) {
     return this.selectedItem ? this.selectedItem.place_id === prediction.place_id : false;
-  }
-
-  fetchImage(address, fetchingCurrent = false) {
-    if (this.selectedIndex !== -1 && !fetchingCurrent) {
-      this.address = this.predictions[this.selectedIndex].description;
-    }
-    this.clearPredictions();
-    this.imageUrl = `${this.apiURL}/map?address=${address}`;
   }
 
   optionClick(option) {
