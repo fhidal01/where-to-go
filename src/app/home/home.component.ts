@@ -75,7 +75,9 @@ export class HomeComponent {
   }
 
   native() {
-    window.open('maps://maps.google.com/maps?daddr=lat,long&amp;ll=');
+    window.open(
+      'https://maps.apple.com/?address=Corso%20Italia%2020,%2001100%20Viterbo,%20Province%20of%20Viterbo,%20Italy&ll=42.418399,12.106154&t=m'
+    );
   }
   web() {
     window.open('https://maps.google.com/maps?daddr=lat,long&amp;ll=');
