@@ -5,12 +5,14 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { LoginGuardService } from './guards/login-guard.service';
 import { ResultsComponent } from './results/results.component';
+import { MatchesComponent } from './matches/matches.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', pathMatch: 'full', component: LoginComponent, canActivate: [LoginGuardService] },
   { path: 'home', pathMatch: 'full', component: HomeComponent, canActivate: [AuthGuardService] },
-  { path: 'results', pathMatch: 'full', component: ResultsComponent, canActivate: [AuthGuardService] }
+  { path: 'results', pathMatch: 'full', component: ResultsComponent, canActivate: [AuthGuardService] },
+  { path: 'match', pathMatch: 'full', component: MatchesComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({

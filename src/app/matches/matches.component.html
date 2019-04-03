@@ -1,0 +1,15 @@
+<div *ngIf="matchesService.matches.length > 1" class="mdl-card mdl-shadow--2dp firebaseui-container">
+  <div class="matches-list">
+    <p>Multiple Matches</p>
+  </div>
+
+  <div>
+    <button class="choose-for-me" *ngIf="matchesService.matches.length > 1" mat-button>Choose for me</button>
+  </div>
+</div>
+
+<div *ngIf="matchesService.matches.length === 1" class="mdl-card mdl-shadow--2dp firebaseui-container matches-list">
+  <p>
+    Single Matches
+  </p>
+</div>
