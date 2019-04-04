@@ -182,12 +182,13 @@ export class HomeComponent {
   }
 
   private getPlaces(latitude, longitude) {
-    this.placesService.getPlaces(latitude, longitude).subscribe(places => {
-      this.places = (places as MyResponse).results;
-      this.searching = false;
+    this.placesService.getPlaces(latitude, longitude);
+    // this.placesService.getPlaces(latitude, longitude).subscribe(places => {
+    //   this.places = (places as MyResponse).results;
+    //   this.searching = false;
 
-      console.log(this.places);
-    });
+    //   console.log(this.places);
+    // });
   }
 
   private clearPredictions() {

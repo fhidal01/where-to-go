@@ -89,7 +89,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     LocationService,
     ModalService,
     PlacesService,
-    HomeComponent,
     AuthGuardService,
     LoginGuardService,
     {

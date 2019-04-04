@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 import { AuthService } from '../services/auth.service';
-import { HomeComponent } from '../home/home.component';
+import { PlacesService } from '../services/places.service';
 
 import browser from 'browser-detect';
 import { BrowserDetectInfo } from 'browser-detect/dist/types/browser-detect.interface';
@@ -32,10 +32,10 @@ export class ResultsComponent implements OnInit {
 
   browser: any = {};
 
-  constructor(private homecomp: HomeComponent, private http: HttpClient, public authserv: AuthService) {
+  constructor(private placesserv: PlacesService, private http: HttpClient, public authserv: AuthService) {
     this.apiURL = environment.api.baseURL;
     this.browser = this.setBrowserOS(browser());
-    this.places = this.homecomp.places;
+    this.places = this.placesserv.places;
   }
   ngOnInit() {
     console.log(this.places);
@@ -56,6 +56,10 @@ export class ResultsComponent implements OnInit {
 
     return brws;
   }
+
+  // getPlaces(){
+  //   this.places =
+  // }
 
   //getDetails(placeId) {
   // this.placesService.getPlaceDetails(placeId)
