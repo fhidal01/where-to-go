@@ -1,15 +1,36 @@
-<div *ngIf="matchesService.matches.length > 1" class="mdl-card mdl-shadow--2dp firebaseui-container">
+<div *ngIf="matchesService.matches.length > 1" class="firebaseui-container container">
   <div class="matches-list">
-    <p>Multiple Matches</p>
+    <div class="match-card" *ngFor="let match of matchesService.matches" (click)="openDetails()">
+      <div class="header">
+        {{ match.name }}
+      </div>
+      <img [src]="match.image" alt="" />
+    </div>
   </div>
-
-  <div>
-    <button class="choose-for-me" *ngIf="matchesService.matches.length > 1" mat-button>Choose for me</button>
+  <div class="action">
+    <button
+      mat-button
+      class="choose-for-me"
+      type="button"
+      *ngIf="matchesService.matches.length > 1"
+      (click)="chooseForMe()"
+    >
+      Choose for me
+    </button>
   </div>
 </div>
 
-<div *ngIf="matchesService.matches.length === 1" class="mdl-card mdl-shadow--2dp firebaseui-container matches-list">
-  <p>
-    Single Matches
-  </p>
+<div *ngIf="matchesService.matches.length === 1" class="single-match">
+  <div class="header">
+    Name
+  </div>
+  <div class="image">
+    Image
+  </div>
+  <div class="match-info">
+    <div class="tile eta">1</div>
+    <div class="tile price">2</div>
+    <div class="tile call">3</div>
+    <div class="tile nav">4</div>
+  </div>
 </div>

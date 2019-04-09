@@ -10,4 +10,12 @@ export class MatchesComponent implements OnInit {
   constructor(public matchesService: MatchesService) {}
 
   ngOnInit() {}
+
+  openDetails() {
+    console.log('Opening details');
+  }
+
+  chooseForMe() {
+    this.matchesService.chooseRandomMatch();
+  }
 }

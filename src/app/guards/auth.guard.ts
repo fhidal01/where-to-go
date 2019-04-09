@@ -7,7 +7,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable()
-export class AuthGuardService implements CanActivate {
+export class AuthGuard implements CanActivate {
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {

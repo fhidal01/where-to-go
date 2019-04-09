@@ -26,8 +26,8 @@ import { ResultsComponent } from './results/results.component';
 import { MatchesComponent } from './matches/matches.component';
 
 // app-services
-import { AuthGuardService } from './guards/auth-guard.service';
-import { LoginGuardService } from './guards/login-guard.service';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
 import { AuthService } from './services/auth.service';
 import { LocationService } from './services/location.service';
 import { PlacesService } from './services/places.service';
@@ -93,9 +93,9 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ModalService,
     PlacesService,
     HomeComponent,
-    AuthGuardService,
+    AuthGuard,
     MatchesService,
-    LoginGuardService,
+    LoginGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeaderInterceptor,
