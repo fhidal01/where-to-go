@@ -18,4 +18,8 @@ export class MatchesComponent implements OnInit {
   chooseForMe() {
     this.matchesService.chooseRandomMatch();
   }
+
+  undo() {
+    this.matchesService.undo();
+  }
 }

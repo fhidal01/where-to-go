@@ -23,7 +23,8 @@
 
 <div *ngIf="matchesService.matches.length === 1" class="single-match">
   <div class="header">
-    Name
+    Match index: {{ matchesService.matches[0].id }}
+    <button type="button" (click)="undo()">Undo</button>
   </div>
   <div class="image">
     Image
