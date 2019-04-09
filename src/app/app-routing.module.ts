@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
+import { MatchesGuard } from './guards/matches.guard';
+
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { AuthGuardService } from './guards/auth-guard.service';
-import { LoginGuardService } from './guards/login-guard.service';
 import { ResultsComponent } from './results/results.component';
+import { MatchesComponent } from './matches/matches.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', pathMatch: 'full', component: LoginComponent, canActivate: [LoginGuardService] },
-  { path: 'home', pathMatch: 'full', component: HomeComponent, canActivate: [AuthGuardService] },
-  { path: 'results', pathMatch: 'full', component: ResultsComponent, canActivate: [AuthGuardService] }
+  { path: 'login', pathMatch: 'full', component: LoginComponent, canActivate: [LoginGuard] },
+  { path: 'home', pathMatch: 'full', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'results', pathMatch: 'full', component: ResultsComponent, canActivate: [AuthGuard] },
+  { path: 'match', pathMatch: 'full', component: MatchesComponent, canActivate: [AuthGuard, MatchesGuard] }
 ];
 
 @NgModule({

@@ -22,14 +22,20 @@ import { HomeComponent } from './home/home.component';
 import { SecureImageComponent } from './secure-image/secure-image.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ModalComponent } from './modal/modal.component';
+import { ResultsComponent } from './results/results.component';
+import { MatchesComponent } from './matches/matches.component';
 
 // app-services
-import { AuthGuardService } from './guards/auth-guard.service';
-import { LoginGuardService } from './guards/login-guard.service';
 import { AuthService } from './services/auth.service';
 import { LocationService } from './services/location.service';
 import { PlacesService } from './services/places.service';
 import { ModalService } from './modal/modal.service';
+import { MatchesService } from './services/matches.service';
+
+// app-guards
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
+import { MatchesGuard } from './guards/matches.guard';
 
 // app-modules
 import { AppRoutingModule } from './app-routing.module';
@@ -37,7 +43,6 @@ import { AppMaterialModule } from './app-material.module';
 
 import { environment } from '../environments/environment';
 import { HeaderInterceptor } from './interceptors/HeaderInterceptor';
-import { ResultsComponent } from './results/results.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInOptions: [
@@ -68,7 +73,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ResultsComponent,
     SecureImageComponent,
     LoadingComponent,
-    ModalComponent
+    ModalComponent,
+    MatchesComponent
   ],
   imports: [
     BrowserModule,
@@ -89,13 +95,15 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     LocationService,
     ModalService,
     PlacesService,
-    AuthGuardService,
-    LoginGuardService,
+    MatchesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeaderInterceptor,
       multi: true
-    }
+    },
+    AuthGuard,
+    LoginGuard,
+    MatchesGuard
   ],
   bootstrap: [AppComponent]
 })
