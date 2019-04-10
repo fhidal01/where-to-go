@@ -17,7 +17,7 @@ export class MatchesService {
       this.matches.push({
         id: iterations,
         name: 'The Daily Kitchen The Daily Kitchen The Daily Kitchen',
-        image: 'https://maps.gstatic.com/mapfiles/place_api/icons/bar-71.png'
+        image: 'assets/temp/food.jpg'
       });
       iterations++;
     }
