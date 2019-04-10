@@ -10,20 +10,9 @@ import { ModalService } from '../modal/modal.service';
 import browser from 'browser-detect';
 import { BrowserDetectInfo } from 'browser-detect/dist/types/browser-detect.interface';
 
-interface Coordinates {
-  lat: number;
-  lng: number;
-}
-interface Location {
-  location: Coordinates;
-}
-interface Result {
-  geometry: Location;
-  name: String;
-}
-interface MyResponse {
-  results: Array<Result>;
-}
+import { MyResponse } from '../models/MyResponse.model';
+import { Coordinates } from '../models/Coordinates.model';
+import { Place } from '../models/Place.model';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +25,7 @@ export class HomeComponent {
   selectedItem: any;
   selectedIndex = -1;
   fetchingCurrentLocation: boolean;
-  places: Array<Result>;
+  places: Array<Place>;
   searching = false;
   imageUrl = '';
   detailsReady;
@@ -174,8 +163,8 @@ export class HomeComponent {
 
   private fetchCoordinatesAndPlaces(coordinateType: COORDINATE_TYPE, location: string): any {
     this.locationService.getCoordinates(coordinateType, location).subscribe(value => {
-      const latitude = (value as MyResponse).results[0].geometry.location.lat;
-      const longitude = (value as MyResponse).results[0].geometry.location.lng;
+      const latitude = (value as MyResponse<Coordinates>).results[0].geometry.location.lat;
+      const longitude = (value as MyResponse<Coordinates>).results[0].geometry.location.lng;
 
       this.getPlaces(latitude, longitude);
     });
@@ -189,6 +178,7 @@ export class HomeComponent {
 
     //   console.log(this.places);
     // });
+    this.getDetails(1);
   }
 
   private clearPredictions() {
@@ -197,11 +187,11 @@ export class HomeComponent {
   }
 
   getDetails(placeId) {
-    // this.placesService.getPlaceDetails(placeId)
-    //   .subscribe((value: any) => {
-    //     this.placeDetails = value.result;
-    //     this.detailsReady = true;
-    //   });
+    this.placesService.getPlaceDetails('ChIJU7RKmHBqsYkRKdG9vD4CmNE').subscribe((value: any) => {
+      this.placeDetails = value.result;
+      this.detailsReady = true;
+      console.log(this.placeDetails);
+    });
   }
 
   openModal(id: string) {
