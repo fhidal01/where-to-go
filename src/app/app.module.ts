@@ -22,10 +22,11 @@ import { HomeComponent } from './home/home.component';
 import { SecureImageComponent } from './secure-image/secure-image.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ModalComponent } from './modal/modal.component';
+import { MatchesComponent } from './matches/matches.component';
 
 // app-services
-import { AuthGuardService } from './guards/auth-guard.service';
-import { LoginGuardService } from './guards/login-guard.service';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
 import { AuthService } from './services/auth.service';
 import { LocationService } from './services/location.service';
 import { PlacesService } from './services/places.service';
@@ -69,9 +70,11 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ResultsComponent,
     SecureImageComponent,
     LoadingComponent,
-    ModalComponent
+    ModalComponent,
+    MatchesComponent
   ],
   imports: [
+    //MatchesComponent,
     SwingModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -91,8 +94,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     LocationService,
     ModalService,
     PlacesService,
-    AuthGuardService,
-    LoginGuardService,
+    AuthGuard,
+    LoginGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeaderInterceptor,
