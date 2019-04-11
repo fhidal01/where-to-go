@@ -24,13 +24,17 @@ import { LoadingComponent } from './loading/loading.component';
 import { ModalComponent } from './modal/modal.component';
 import { MatchesComponent } from './matches/matches.component';
 
-// app-services
+// app-guards
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
+import { MatchesGuard } from './guards/matches.guard';
+
+// app-services
 import { AuthService } from './services/auth.service';
 import { LocationService } from './services/location.service';
 import { PlacesService } from './services/places.service';
 import { ModalService } from './modal/modal.service';
+import { MatchesService } from './services/matches.service';
 
 // app-modules
 import { AppRoutingModule } from './app-routing.module';
@@ -74,7 +78,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatchesComponent
   ],
   imports: [
-    //MatchesComponent,
     SwingModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -94,8 +97,10 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     LocationService,
     ModalService,
     PlacesService,
+    MatchesService,
     AuthGuard,
     LoginGuard,
+    MatchesGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeaderInterceptor,
