@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
@@ -17,32 +17,19 @@ import {
   SwingStackComponent,
   SwingCardComponent
 } from 'angular2-swing';
-
-interface Coordinates {
-  lat: number;
-  lng: number;
-}
-interface Location {
-  location: Coordinates;
-}
-interface Result {
-  geometry: Location;
-  name: String;
-}
-interface AfterViewInit {
-  ngAfterViewInit(): void;
-}
+import { Place } from '../models/Place.model';
 
 @Component({
   selector: 'app-home',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements AfterViewInit {
+export class ResultsComponent implements AfterViewInit, OnInit {
   @ViewChild('myswing1') swingStack: SwingStackComponent;
   @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
-  public places: Array<Result>;
+  public places: Array<Place>;
   cards: Array<any>;
+  card;
   stackConfig: StackConfig;
 
   private apiURL: string;
@@ -61,7 +48,7 @@ export class ResultsComponent implements AfterViewInit {
       },
       minThrowOutDistance: 400 // default value is 400
     };
-    this.cards = [{ name: 'clubs', symbol: '♣' }, { name: 'diamonds', symbol: '♦' }, { name: 'spades', symbol: '♠' }];
+
     this.apiURL = environment.api.baseURL;
     this.browser = this.setBrowserOS(browser());
     this.places = this.placesserv.places;
@@ -71,6 +58,16 @@ export class ResultsComponent implements AfterViewInit {
     console.log(this.swingStack); // this is the stack
     console.log(this.swingCards); // this is a list of cards
   }
+
+  ngOnInit() {
+    if (this.places != null) {
+      this.places.forEach(x => {
+        this.constructCard(x);
+      });
+    }
+  }
+
+  private constructCard(place) {}
 
   private setBrowserOS(browserInfo: BrowserDetectInfo): BrowserDetectInfo {
     const brws = browserInfo;
