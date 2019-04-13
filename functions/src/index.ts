@@ -4,7 +4,7 @@ import * as httpClient from 'request';
 import * as cors from 'cors';
 
 //(When working locally) - Comment In
-//import { local } from './localconfig';
+import { local } from './localconfig';
 
 admin.initializeApp();
 const express = require('express');
@@ -20,10 +20,10 @@ type Config = {
 };
 
 //(When working locally) - Comment Out
-const config = functions.config() as Config;
+//sconst config = functions.config() as Config;
 
 //(When working locally) - Comment In
-//const config = local;
+const config = local;
 
 const whitelist = config.cors.allowedorigins.split(',');
 const corsOptions = {
@@ -156,6 +156,22 @@ app.get('/placeDetails', (request, response) => {
     },
     function(error, res, body) {
       if (!error && res.statusCode === 200) {
+        response.send(body);
+      }
+    }
+  );
+});
+
+app.get('/photo', (request, response) => {
+  httpClient.defaults({ encoding: null }).get(
+    {
+      url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${request.query.maxwidth}&photoreference=${
+        request.query.reff
+      }&key=${config.googleservice.apikey}`
+    },
+    function(error, res, body) {
+      if (!error && res.statusCode === 200) {
+        response.contentType('png');
         response.send(body);
       }
     }
