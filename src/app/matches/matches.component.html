@@ -1,11 +1,16 @@
-<div *ngIf="matchesService.matches.length > 1" class="firebaseui-container container">
+<div [hidden]="matchesService.matches.length === 1" class="firebaseui-container container">
   <h3 class="title">You have multiple matches</h3>
   <div class="matches-list">
     <div class="match-card" *ngFor="let match of matchesService.matches" (click)="openDetails()">
       <div class="header">
         {{ match.name }}
       </div>
-      <img src="assets/temp/food.jpg" alt="" />
+      <app-secure-image
+        *ngIf="match.photos && match.photos.length >= 1"
+        class="place-image"
+        [height]="'200px'"
+        [src]="apiURL + '/photo?maxwidth=' + match.photos[0].width + '&reff=' + match.photos[0].photo_reference"
+      ></app-secure-image>
     </div>
   </div>
   <div class="action">
@@ -21,9 +26,9 @@
   </div>
 </div>
 
-<div *ngIf="matchesService.matches.length === 1" class="single-match">
+<div [hidden]="matchesService.matches.length > 1" class="single-match">
   <div class="header">
-    Match index: {{ matchesService.matches[0].id }}
+    {{ match.name }}
     <button type="button" (click)="undo()">Undo</button>
   </div>
   <div class="image">
