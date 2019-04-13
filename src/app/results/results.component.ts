@@ -31,11 +31,11 @@ export class ResultsComponent implements AfterViewInit, OnInit {
   cards: Array<any>;
   card;
   stackConfig: StackConfig;
-
   private apiURL: string;
   browser: any = {};
 
   constructor(private placesserv: PlacesService, private http: HttpClient, public authserv: AuthService) {
+    this.apiURL = environment.api.baseURL;
     this.stackConfig = {
       allowedDirections: [Direction.LEFT, Direction.RIGHT],
       throwOutConfidence: (offsetX: number, offsetY: number, targetElement: HTMLElement) => {
@@ -59,15 +59,7 @@ export class ResultsComponent implements AfterViewInit, OnInit {
     console.log(this.swingCards); // this is a list of cards
   }
 
-  ngOnInit() {
-    if (this.places != null) {
-      this.places.forEach(x => {
-        this.constructCard(x);
-      });
-    }
-  }
-
-  private constructCard(place) {}
+  ngOnInit() {}
 
   private setBrowserOS(browserInfo: BrowserDetectInfo): BrowserDetectInfo {
     const brws = browserInfo;

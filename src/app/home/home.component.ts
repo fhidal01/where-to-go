@@ -177,6 +177,7 @@ export class HomeComponent {
     this.placesService.getPlaces(latitude, longitude).subscribe(places => {
       this.places = (places as MyResponse<Place>).results;
       //Temp
+      this.placesService.places = this.places;
       this.matchesService.matches = this.places;
       this.searching = false;
 

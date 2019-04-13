@@ -2,6 +2,13 @@
 <div id="viewport">
   <ul class="stack" swing-stack [stackConfig]="stackConfig" #myswing1>
     <li swing-card #mycards1 [ngClass]="c.name" class="blah" *ngFor="let c of places">
+      <app-secure-image
+        *ngIf="c.photos && c.photos.length >= 1"
+        class="place-image"
+        [height]="'200px'"
+        [src]="apiURL + '/photo?maxwidth=' + c.photos[0].width + '&reff=' + c.photos[0].photo_reference"
+      >
+      </app-secure-image>
       <p>{{ c.name }}</p>
       <p>{{ c?.rating }}</p>
     </li>
