@@ -24,9 +24,9 @@
     <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="native()">
       <mat-icon class="current-location-button">my_location</mat-icon>
     </button>
-    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="web()">
+    <!-- <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="web()">
       <mat-icon class="current-location-button">mail</mat-icon>
-    </button>
+    </button> -->
 
     <div class="predictions" #preds [hidden]="predictions.length === 0 || fetchingCurrentLocation">
       <mat-option
@@ -53,7 +53,7 @@
 
 <div class="action-container" *ngIf="imageUrl">
   <button *ngIf="searching" mat-button>Searching ....</button>
-  <button [routerLink]="['/results']" *ngIf="!searching" mat-button>Lets GO!</button>
+  <button [routerLink]="['/match']" *ngIf="!searching" mat-button>Lets GO!</button>
 </div>
 
 <!-- <div *ngIf="!searching" style="width: 100%">

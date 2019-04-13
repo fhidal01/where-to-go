@@ -8,13 +8,15 @@ import { HttpClient } from '@angular/common/http';
     <app-loading *ngIf="isImageLoading"></app-loading>
     <section *ngIf="imageToShow && !isImageLoading">
       <div class="”media”">
-        <img [src]="imageToShow" />
+        <img [src]="imageToShow" [style.height]="height" />
       </div>
     </section>
   `
 })
 export class SecureImageComponent implements OnInit, OnChanges {
   @Input() private src: string;
+  @Input() height: string;
+  @Input() width: string;
 
   public imageToShow: any;
   public isImageLoading = false;
@@ -30,6 +32,9 @@ export class SecureImageComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.height = this.height ? this.height : 'auto';
+    this.width = this.width ? this.width : 'auto';
+
     if (this.src) {
       this.getImage(this.src);
     }

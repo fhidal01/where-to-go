@@ -162,4 +162,20 @@ app.get('/placeDetails', (request, response) => {
   );
 });
 
+app.get('/photo', (request, response) => {
+  httpClient.defaults({ encoding: null }).get(
+    {
+      url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${request.query.maxwidth}&photoreference=${
+        request.query.reff
+      }&key=${config.googleservice.apikey}`
+    },
+    function(error, res, body) {
+      if (!error && res.statusCode === 200) {
+        response.contentType('png');
+        response.send(body);
+      }
+    }
+  );
+});
+
 exports.api = functions.https.onRequest(app);

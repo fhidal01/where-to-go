@@ -29,12 +29,8 @@ export class PlacesService {
     this.apiURL = environment.api.baseURL;
   }
 
-  getPlaces(latitude, longitude): void {
-    this.http.get(`${this.apiURL}/places?latitude=${latitude}&longitude=${longitude}`).subscribe(places => {
-      this.places = (places as MyResponse).results;
-      console.log(this.places);
-      this.router.navigate(['/results']);
-    });
+  getPlaces(latitude, longitude): Observable<any> {
+    return this.http.get(`${this.apiURL}/places?latitude=${latitude}&longitude=${longitude}`);
   }
 
   getPlaceDetails(id) {

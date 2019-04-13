@@ -13,6 +13,7 @@ import { BrowserDetectInfo } from 'browser-detect/dist/types/browser-detect.inte
 import { MyResponse } from '../models/MyResponse.model';
 import { Coordinates } from '../models/Coordinates.model';
 import { Place } from '../models/Place.model';
+import { MatchesService } from '../services/matches.service';
 
 @Component({
   selector: 'app-home',
@@ -41,7 +42,8 @@ export class HomeComponent {
     public authserv: AuthService,
     private placesService: PlacesService,
     private locationService: LocationService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private matchesService: MatchesService
   ) {
     this.apiURL = environment.api.baseURL;
     this.browser = this.setBrowserOS(browser());
@@ -63,14 +65,14 @@ export class HomeComponent {
     return brws;
   }
 
-  native() {
-    window.open(
-      'https://maps.apple.com/?address=Corso%20Italia%2020,%2001100%20Viterbo,%20Province%20of%20Viterbo,%20Italy&ll=42.418399,12.106154&t=m'
-    );
-  }
-  web() {
-    window.open('https://maps.google.com/maps?daddr=lat,long&amp;ll=');
-  }
+  // native() {
+  //   window.open(
+  //     'https://maps.apple.com/?address=Corso%20Italia%2020,%2001100%20Viterbo,%20Province%20of%20Viterbo,%20Italy&ll=42.418399,12.106154&t=m'
+  //   );
+  // }
+  // web() {
+  //   window.open('https://maps.google.com/maps?daddr=lat,long&amp;ll=');
+  // }
 
   getCurrentLocation() {
     this.fetchingCurrentLocation = true;
@@ -171,13 +173,15 @@ export class HomeComponent {
   }
 
   private getPlaces(latitude, longitude) {
-    this.placesService.getPlaces(latitude, longitude);
-    // this.placesService.getPlaces(latitude, longitude).subscribe(places => {
-    //   this.places = (places as MyResponse).results;
-    //   this.searching = false;
+    //this.placesService.getPlaces(latitude, longitude);
+    this.placesService.getPlaces(latitude, longitude).subscribe(places => {
+      this.places = (places as MyResponse<Place>).results;
+      //Temp
+      this.matchesService.matches = this.places;
+      this.searching = false;
 
-    //   console.log(this.places);
-    // });
+      console.log(this.places);
+    });
     this.getDetails(1);
   }
 
