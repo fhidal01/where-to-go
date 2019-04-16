@@ -163,7 +163,7 @@ app.get('/placeDetails', (request, response) => {
 });
 
 app.get('/photo', (request, response) => {
-  httpClient.defaults({ encoding: null }).get(
+  httpClient.get(
     {
       url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${request.query.maxwidth}&photoreference=${
         request.query.reff
@@ -171,8 +171,7 @@ app.get('/photo', (request, response) => {
     },
     function(error, res, body) {
       if (!error && res.statusCode === 200) {
-        response.contentType('png');
-        response.send(body);
+        response.send(res.request.uri.href);
       }
     }
   );
