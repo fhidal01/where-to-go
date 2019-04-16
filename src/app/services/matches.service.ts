@@ -3,10 +3,12 @@ import { pullAt } from 'lodash';
 import { Place } from '../models/Place.model';
 import { Scope } from '../models/Scope.model';
 import { PlaceType } from '../models/PlaceType.model';
+import { PlaceDetails } from '../models/PlaceDetails.model';
 @Injectable()
 export class MatchesService {
-  public matches: Array<Place>;
-  public rejects: Array<Place>;
+  public dummyMatches: Array<Place>;
+  public matches: Array<PlaceDetails>;
+  public rejects: Array<PlaceDetails>;
 
   constructor() {
     this.matches = new Array();
@@ -63,7 +65,7 @@ export class MatchesService {
     };
     let iterations = 1;
     while (iterations <= matches) {
-      this.matches.push(dummyPlace);
+      this.dummyMatches.push(dummyPlace);
       iterations++;
     }
   }

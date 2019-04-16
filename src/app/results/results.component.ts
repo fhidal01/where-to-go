@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 
 import { AuthService } from '../services/auth.service';
 import { PlacesService } from '../services/places.service';
+import { PlaceDetails } from '../models/PlaceDetails.model';
 
 import browser from 'browser-detect';
 import { BrowserDetectInfo } from 'browser-detect/dist/types/browser-detect.interface';
@@ -18,6 +19,7 @@ import {
   SwingCardComponent
 } from 'angular2-swing';
 import { Place } from '../models/Place.model';
+import { MatchesService } from '../services/matches.service';
 
 @Component({
   selector: 'app-home',
@@ -27,14 +29,21 @@ import { Place } from '../models/Place.model';
 export class ResultsComponent implements AfterViewInit, OnInit {
   @ViewChild('myswing1') swingStack: SwingStackComponent;
   @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
-  public places: Array<Place>;
+  currentMatch: PlaceDetails;
+  currentReject: PlaceDetails;
+  public allPlaceDetails: Array<PlaceDetails> = [];
   cards: Array<any>;
   card;
   stackConfig: StackConfig;
   private apiURL: string;
   browser: any = {};
 
-  constructor(private placesserv: PlacesService, private http: HttpClient, public authserv: AuthService) {
+  constructor(
+    private placesserv: PlacesService,
+    private http: HttpClient,
+    public authserv: AuthService,
+    public matchserv: MatchesService
+  ) {
     this.apiURL = environment.api.baseURL;
     this.stackConfig = {
       allowedDirections: [Direction.LEFT, Direction.RIGHT],
@@ -51,12 +60,26 @@ export class ResultsComponent implements AfterViewInit, OnInit {
 
     this.apiURL = environment.api.baseURL;
     this.browser = this.setBrowserOS(browser());
-    this.places = this.placesserv.places;
+    this.allPlaceDetails = this.placesserv.allPlaceDetails;
   }
   //ngOnInit() {}
   ngAfterViewInit() {
+    console.log(this.allPlaceDetails);
     console.log(this.swingStack); // this is the stack
     console.log(this.swingCards); // this is a list of cards
+
+    this.swingStack.throwoutright.subscribe((event: ThrowEvent) => {
+      this.currentMatch = this.allPlaceDetails.pop();
+      this.matchserv.matches.push(this.currentMatch);
+      console.log('Accepted');
+      console.log(this.matchserv.matches);
+    });
+    this.swingStack.throwoutleft.subscribe((event: ThrowEvent) => {
+      this.currentReject = this.allPlaceDetails.pop();
+      this.matchserv.rejects.push(this.currentReject);
+      console.log('Denied');
+      console.log(this.matchserv.rejects);
+    });
   }
 
   ngOnInit() {}

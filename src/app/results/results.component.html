@@ -1,7 +1,7 @@
 <!--<p *ngFor="let place of places" style="color:white">HelloWorld</p>-->
 <div id="viewport">
   <ul class="stack" swing-stack [stackConfig]="stackConfig" #myswing1>
-    <li swing-card #mycards1 [ngClass]="c.name" class="blah" *ngFor="let c of places">
+    <li swing-card #mycards1 [ngClass]="c.name" class="blah" *ngFor="let c of allPlaceDetails">
       <app-secure-image
         *ngIf="c.photos && c.photos.length >= 1"
         class="place-image"
