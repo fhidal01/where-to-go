@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as httpClient from 'request';
+import * as httpClientPromise from 'request-promise-native';
 import * as cors from 'cors';
 
 //(When working locally) - Comment In
@@ -84,6 +85,33 @@ const validateFirebaseIdToken = (req, res, next) => {
 app.use(cors(corsOptions));
 app.use(validateFirebaseIdToken);
 
+async function getPlaces(request) {
+  return httpClientPromise({
+    uri: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${request.query.latitude},${
+      request.query.longitude
+    }&radius=1500&type=restaurant&key=${config.googleservice.apikey}`,
+    json: true
+  });
+}
+
+async function getPlacesDetails(placeId: string) {
+  return httpClientPromise({
+    uri: `https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=${
+      config.googleservice.apikey
+    }`,
+    json: true
+  });
+}
+
+async function getPhoto(reffId: string) {
+  return httpClientPromise({
+    uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${reffId}&key=${
+      config.googleservice.apikey
+    }`,
+    resolveWithFullResponse: true
+  });
+}
+
 app.get('/coordinates', (request, response) => {
   httpClient.get(
     {
@@ -112,6 +140,32 @@ app.get('/places', (request, response) => {
       }
     }
   );
+});
+
+app.get('/placeDetails', (request, response) => {
+  httpClient.get(
+    {
+      url: `https://maps.googleapis.com/maps/api/place/details/json?placeid=${request.query.place}&key=${
+        config.googleservice.apikey
+      }`
+    },
+    function(error, res, body) {
+      if (!error && res.statusCode === 200) {
+        response.send(body);
+      }
+    }
+  );
+});
+
+app.get('/places-enhanced', async (request, response) => {
+  const details = [];
+  const places = await getPlaces(request);
+
+  for (const place of places.results) {
+    details.push(await getPlacesDetails(place.place_id));
+  }
+
+  response.send(details.map(obj => obj.result));
 });
 
 app.get('/location/autocomplete', (request, response) => {
@@ -147,23 +201,8 @@ app.get('/map', (request, response) => {
   );
 });
 
-app.get('/placeDetails', (request, response) => {
-  httpClient.get(
-    {
-      url: `https://maps.googleapis.com/maps/api/place/details/json?placeid=${request.query.place}&key=${
-        config.googleservice.apikey
-      }`
-    },
-    function(error, res, body) {
-      if (!error && res.statusCode === 200) {
-        response.send(body);
-      }
-    }
-  );
-});
-
 app.get('/photo', (request, response) => {
-  httpClient.get(
+  httpClient.defaults({ encoding: null }).get(
     {
       url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${request.query.maxwidth}&photoreference=${
         request.query.reff
@@ -171,10 +210,27 @@ app.get('/photo', (request, response) => {
     },
     function(error, res, body) {
       if (!error && res.statusCode === 200) {
-        response.send(res.request.uri.href);
+        response.contentType('png');
+        response.send(body);
       }
     }
   );
+});
+
+app.get('/photo-url', async (request, response) => {
+  let ids = new Array<string>();
+  const urls = new Array<string>();
+
+  if (request.query.ids) {
+    ids = request.query.ids.split(',');
+  }
+
+  for (const id of ids) {
+    const result = await getPhoto(id);
+    urls.push(result.request.uri.href);
+  }
+
+  response.send(urls);
 });
 
 exports.api = functions.https.onRequest(app);
