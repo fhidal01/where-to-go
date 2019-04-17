@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatchesService } from '../services/matches.service';
 import { environment } from '../../environments/environment';
+import { PlaceDetails } from '../models/PlaceDetails.model';
 @Component({
   selector: 'app-matches',
   templateUrl: './matches.component.html',

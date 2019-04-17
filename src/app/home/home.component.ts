@@ -14,6 +14,7 @@ import { MyResponse } from '../models/MyResponse.model';
 import { Coordinates } from '../models/Coordinates.model';
 import { Place } from '../models/Place.model';
 import { MatchesService } from '../services/matches.service';
+import { PlaceDetails } from '../models/PlaceDetails.model';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +32,7 @@ export class HomeComponent {
   imageUrl = '';
   detailsReady;
   placeDetails;
+  allPlaceDetails: Array<PlaceDetails> = [];
   modalMsg: any;
 
   private apiURL: string;
@@ -177,12 +179,13 @@ export class HomeComponent {
     this.placesService.getPlaces(latitude, longitude).subscribe(places => {
       this.places = (places as MyResponse<Place>).results;
       //Temp
-      this.matchesService.matches = this.places;
+      this.placesService.places = this.places;
+      this.matchesService.dummyMatches = this.places;
+      this.places.forEach(x => {
+        this.getDetails(x.reference);
+      });
       this.searching = false;
-
-      console.log(this.places);
     });
-    this.getDetails(1);
   }
 
   private clearPredictions() {
@@ -191,10 +194,11 @@ export class HomeComponent {
   }
 
   getDetails(placeId) {
-    this.placesService.getPlaceDetails('ChIJU7RKmHBqsYkRKdG9vD4CmNE').subscribe((value: any) => {
+    this.placesService.getPlaceDetails(placeId).subscribe((value: any) => {
       this.placeDetails = value.result;
+      this.allPlaceDetails.push(this.placeDetails);
       this.detailsReady = true;
-      console.log(this.placeDetails);
+      this.placesService.allPlaceDetails = this.allPlaceDetails;
     });
   }
 

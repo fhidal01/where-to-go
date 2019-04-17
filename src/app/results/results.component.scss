@@ -32,17 +32,14 @@ input {
 }
 
 #viewport {
-  width: 500px;
+  width: auto;
   height: 500px;
-  background: #c7433e;
-  border: 10px solid #ed5d52;
   margin: 100px auto 0;
   position: relative;
 }
 #viewport .stack {
   width: 200px;
   height: 300px;
-  background: #ed5d52;
   position: absolute;
   top: 100px;
   left: 50%;
@@ -59,12 +56,12 @@ input {
   top: 0;
   left: 0;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.2);
-  line-height: 300px;
   text-align: center;
-  font-size: 100px;
+  font-size: 16px;
   border: 10px solid #ececec;
   box-sizing: border-box;
   cursor: default;
+  overflow-wrap: normal;
 }
 #viewport li.clubs,
 #viewport li.spades {

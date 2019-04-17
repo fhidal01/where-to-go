@@ -1,9 +1,16 @@
 <!--<p *ngFor="let place of places" style="color:white">HelloWorld</p>-->
 <div id="viewport">
   <ul class="stack" swing-stack [stackConfig]="stackConfig" #myswing1>
-    <li swing-card #mycards1 [ngClass]="c.name" class="blah" *ngFor="let c of cards">
-      {{ c.symbol }}
-      <p>hello</p>
+    <li swing-card #mycards1 [ngClass]="c.name" class="blah" *ngFor="let c of allPlaceDetails">
+      <app-secure-image
+        *ngIf="c.photos && c.photos.length >= 1"
+        class="place-image"
+        [height]="'200px'"
+        [src]="apiURL + '/photo?maxwidth=' + c.photos[0].width + '&reff=' + c.photos[0].photo_reference"
+      >
+      </app-secure-image>
+      <p>{{ c.name }}</p>
+      <p>{{ c?.rating }}</p>
     </li>
   </ul>
 </div>
