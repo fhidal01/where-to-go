@@ -27,11 +27,15 @@ export class HomeComponent {
   selectedItem: any;
   selectedIndex = -1;
   fetchingCurrentLocation: boolean;
+  //rf: no need
   places: Array<Place>;
   searching = false;
   imageUrl = '';
+  //rf: no need
   detailsReady;
+  //rf: no need
   placeDetails;
+  //rf: no need
   allPlaceDetails: Array<PlaceDetails> = [];
   modalMsg: any;
 
@@ -177,10 +181,13 @@ export class HomeComponent {
   private getPlaces(latitude, longitude) {
     //this.placesService.getPlaces(latitude, longitude);
     this.placesService.getPlaces(latitude, longitude).subscribe(places => {
+      //rf: direct set to this.placesService.places and type changes to Array of PlaceDetails
       this.places = (places as MyResponse<Place>).results;
-      //Temp
+      //rf: no need
       this.placesService.places = this.places;
+      //rf: no need
       this.matchesService.dummyMatches = this.places;
+      //rf: no need
       this.places.forEach(x => {
         this.getDetails(x.reference);
       });
@@ -193,6 +200,7 @@ export class HomeComponent {
     this.selectedIndex = -1;
   }
 
+  //rf: no need
   getDetails(placeId) {
     this.placesService.getPlaceDetails(placeId).subscribe((value: any) => {
       this.placeDetails = value.result;

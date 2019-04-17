@@ -9,7 +9,9 @@ import { PlaceDetails } from '../models/PlaceDetails.model';
 @Injectable()
 export class PlacesService {
   private apiURL: string;
+  //rf: change type to placeDetails
   places: Array<Place>;
+  //rf: no need
   public allPlaceDetails: Array<PlaceDetails>;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -18,6 +20,10 @@ export class PlacesService {
 
   getPlaces(latitude, longitude): Observable<any> {
     return this.http.get(`${this.apiURL}/places?latitude=${latitude}&longitude=${longitude}`);
+  }
+
+  getPlacesEnhanced(latitude, longitude): Observable<any> {
+    return this.http.get(`${this.apiURL}/places-enhanced?latitude=${latitude}&longitude=${longitude}`);
   }
 
   getPlaceDetails(id) {

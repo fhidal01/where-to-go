@@ -5,8 +5,9 @@ import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
 import { PlacesService } from '../services/places.service';
 import { PlaceDetails } from '../models/PlaceDetails.model';
-
+//rf: no need
 import browser from 'browser-detect';
+//rf: no need
 import { BrowserDetectInfo } from 'browser-detect/dist/types/browser-detect.interface';
 import {
   StackConfig,
@@ -18,6 +19,7 @@ import {
   SwingStackComponent,
   SwingCardComponent
 } from 'angular2-swing';
+//rf: no need
 import { Place } from '../models/Place.model';
 import { MatchesService } from '../services/matches.service';
 
@@ -29,17 +31,26 @@ import { MatchesService } from '../services/matches.service';
 export class ResultsComponent implements AfterViewInit, OnInit {
   @ViewChild('myswing1') swingStack: SwingStackComponent;
   @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
+
+  //rf: dont need variables. Can just send them to service directly.
   currentMatch: PlaceDetails;
+  //rf: dont need variables. Can just send them to service directly.
   currentReject: PlaceDetails;
+
   public allPlaceDetails: Array<PlaceDetails> = [];
+
+  //rf: no need
   cards: Array<any>;
+  //rf: no need
   card;
   stackConfig: StackConfig;
   private apiURL: string;
+  //rf: no need
   browser: any = {};
 
   constructor(
     private placesserv: PlacesService,
+    //rf: no need
     private http: HttpClient,
     public authserv: AuthService,
     public matchserv: MatchesService
@@ -58,10 +69,14 @@ export class ResultsComponent implements AfterViewInit, OnInit {
       minThrowOutDistance: 400 // default value is 400
     };
 
+    //rf: duplicate
     this.apiURL = environment.api.baseURL;
+    //rf: no need
     this.browser = this.setBrowserOS(browser());
+    //rf: would move to top. keep simple assignment together for readability
     this.allPlaceDetails = this.placesserv.allPlaceDetails;
   }
+  //rf: no need
   //ngOnInit() {}
   ngAfterViewInit() {
     console.log(this.allPlaceDetails);
@@ -69,12 +84,14 @@ export class ResultsComponent implements AfterViewInit, OnInit {
     console.log(this.swingCards); // this is a list of cards
 
     this.swingStack.throwoutright.subscribe((event: ThrowEvent) => {
+      //rf: no need var can just pop right to service
       this.currentMatch = this.allPlaceDetails.pop();
       this.matchserv.matches.push(this.currentMatch);
       console.log('Accepted');
       console.log(this.matchserv.matches);
     });
     this.swingStack.throwoutleft.subscribe((event: ThrowEvent) => {
+      //rf: no need var can just pop right to service
       this.currentReject = this.allPlaceDetails.pop();
       this.matchserv.rejects.push(this.currentReject);
       console.log('Denied');
@@ -82,8 +99,10 @@ export class ResultsComponent implements AfterViewInit, OnInit {
     });
   }
 
+  //rf: no need
   ngOnInit() {}
 
+  //rf: no need resedue from compying of component contents
   private setBrowserOS(browserInfo: BrowserDetectInfo): BrowserDetectInfo {
     const brws = browserInfo;
 

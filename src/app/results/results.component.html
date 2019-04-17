@@ -2,6 +2,7 @@
 <div id="viewport">
   <ul class="stack" swing-stack [stackConfig]="stackConfig" #myswing1>
     <li swing-card #mycards1 [ngClass]="c.name" class="blah" *ngFor="let c of allPlaceDetails">
+      <!--rf: maybe revist logic to use new photo endpoint is better, not sure yet-->
       <app-secure-image
         *ngIf="c.photos && c.photos.length >= 1"
         class="place-image"
