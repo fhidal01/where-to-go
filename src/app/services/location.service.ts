@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Injectable()
 export class LocationService {
@@ -11,6 +12,7 @@ export class LocationService {
     ADDRESS: 'address',
     PLACE: 'place_id'
   };
+  ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) {
     this.apiURL = environment.api.baseURL;
@@ -21,7 +23,8 @@ export class LocationService {
   }
 
   getPredictions(input: string): Observable<any> {
-    return this.http.get(`${this.apiURL}/location/autocomplete?input=${input}`);
+    this.ngUnsubscribe.next();
+    return this.http.get(`${this.apiURL}/location/autocomplete?input=${input}`).pipe(takeUntil(this.ngUnsubscribe));
   }
 }
 

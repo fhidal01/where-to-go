@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
@@ -15,13 +15,14 @@ import { Coordinates } from '../models/Coordinates.model';
 import { Place } from '../models/Place.model';
 import { MatchesService } from '../services/matches.service';
 import { PlaceDetails } from '../models/PlaceDetails.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnDestroy {
   address = '';
   predictions: Array<any> = new Array<any>();
   selectedItem: any;
@@ -42,6 +43,10 @@ export class HomeComponent {
   private apiURL: string;
 
   browser: any = {};
+
+  private coordinateSub: Subscription;
+  private predictionSub: Subscription;
+  private placesSub: Subscription;
 
   constructor(
     private http: HttpClient,
@@ -117,9 +122,10 @@ export class HomeComponent {
   }
 
   fetchPredictions() {
+    this.locationService.ngUnsubscribe.next();
     this.imageUrl = null;
     if (this.address.length >= 3) {
-      this.locationService.getPredictions(this.address).subscribe(result => {
+      this.predictionSub = this.locationService.getPredictions(this.address).subscribe(result => {
         this.predictions = result.predictions;
       });
     } else {
@@ -170,7 +176,7 @@ export class HomeComponent {
   }
 
   private fetchCoordinatesAndPlaces(coordinateType: COORDINATE_TYPE, location: string): any {
-    this.locationService.getCoordinates(coordinateType, location).subscribe(value => {
+    this.coordinateSub = this.locationService.getCoordinates(coordinateType, location).subscribe(value => {
       const latitude = (value as MyResponse<Coordinates>).results[0].geometry.location.lat;
       const longitude = (value as MyResponse<Coordinates>).results[0].geometry.location.lng;
 
@@ -179,8 +185,7 @@ export class HomeComponent {
   }
 
   private getPlaces(latitude, longitude) {
-    //this.placesService.getPlaces(latitude, longitude);
-    this.placesService.getPlaces(latitude, longitude).subscribe(places => {
+    this.placesSub = this.placesService.getPlaces(latitude, longitude).subscribe(places => {
       //rf: direct set to this.placesService.places and type changes to Array of PlaceDetails
       this.places = (places as MyResponse<Place>).results;
       //rf: no need
@@ -214,7 +219,15 @@ export class HomeComponent {
     console.log('clicked');
     this.modalService.open(id);
   }
+
   closeModal(id: string) {
     this.modalService.close(id);
+  }
+
+  ngOnDestroy(): void {
+    this.locationService.ngUnsubscribe.complete();
+    this.coordinateSub.unsubscribe();
+    this.predictionSub.unsubscribe();
+    this.placesSub.unsubscribe();
   }
 }
