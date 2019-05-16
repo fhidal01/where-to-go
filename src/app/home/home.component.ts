@@ -29,7 +29,7 @@ export class HomeComponent implements OnDestroy {
   selectedIndex = -1;
   fetchingCurrentLocation: boolean;
   //rf: no need
-  places: Array<Place>;
+  places: Array<PlaceDetails>;
   searching = false;
   imageUrl = '';
   //rf: no need
@@ -185,17 +185,8 @@ export class HomeComponent implements OnDestroy {
   }
 
   private getPlaces(latitude, longitude) {
-    this.placesSub = this.placesService.getPlaces(latitude, longitude).subscribe(places => {
-      //rf: direct set to this.placesService.places and type changes to Array of PlaceDetails
-      this.places = (places as MyResponse<Place>).results;
-      //rf: no need
-      this.placesService.places = this.places;
-      //rf: no need
-      this.matchesService.dummyMatches = this.places;
-      //rf: no need
-      this.places.forEach(x => {
-        this.getDetails(x.reference);
-      });
+    this.placesSub = this.placesService.getPlacesEnhanced(latitude, longitude).subscribe((x: Array<PlaceDetails>) => {
+      this.placesService.places = x;
       this.searching = false;
     });
   }
@@ -204,17 +195,6 @@ export class HomeComponent implements OnDestroy {
     this.predictions.length = 0;
     this.selectedIndex = -1;
   }
-
-  //rf: no need
-  getDetails(placeId) {
-    this.placesService.getPlaceDetails(placeId).subscribe((value: any) => {
-      this.placeDetails = value.result;
-      this.allPlaceDetails.push(this.placeDetails);
-      this.detailsReady = true;
-      this.placesService.allPlaceDetails = this.allPlaceDetails;
-    });
-  }
-
   openModal(id: string) {
     console.log('clicked');
     this.modalService.open(id);

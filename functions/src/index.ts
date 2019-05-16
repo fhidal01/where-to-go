@@ -5,7 +5,7 @@ import * as httpClientPromise from 'request-promise-native';
 import * as cors from 'cors';
 
 //(When working locally) - Comment In
-//import { local } from './localconfig';
+import { local } from './localconfig';
 
 admin.initializeApp();
 const express = require('express');
@@ -21,10 +21,10 @@ type Config = {
 };
 
 //(When working locally) - Comment Out
-const config = functions.config() as Config;
+//const config = functions.config() as Config;
 
 //(When working locally) - Comment In
-//const config = local;
+const config = local;
 
 const whitelist = config.cors.allowedorigins.split(',');
 const corsOptions = {

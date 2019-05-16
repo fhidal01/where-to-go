@@ -3,16 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { Place } from '../models/Place.model';
 import { PlaceDetails } from '../models/PlaceDetails.model';
 
 @Injectable()
 export class PlacesService {
   private apiURL: string;
-  //rf: change type to placeDetails
-  places: Array<Place>;
-  //rf: no need
-  public allPlaceDetails: Array<PlaceDetails>;
+  places: Array<PlaceDetails>;
 
   constructor(private http: HttpClient, private router: Router) {
     this.apiURL = environment.api.baseURL;
